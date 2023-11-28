@@ -1,0 +1,5 @@
+outs:
+- md5: 70f948e3b2e263f63e4655f8537226f2
+  size: 1201
+  hash: md5
+  path: cine_1x1x1mm_512x512x1x24x4_snr20_fa90_bh_par.mat
