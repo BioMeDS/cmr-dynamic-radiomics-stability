@@ -4,7 +4,6 @@
 %    This file is derived from DisplayMRXCAT.m of the MRXCAT software
 %=========================================================================
 function [data, fname] = SaveAsCsv()
-
   cd('../../data/mrxcat_simulations');
   foldernames = glob ("snr*");
 
