@@ -7,24 +7,29 @@ NUMBER = range(1,25)
 
 rule all:
     input:
-        expand("data/mrxcat_simulations/snr{snr}_{replicate}/csvs/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.csv", snr=SNR, replicate=REPLICATE, number=NUMBER),
+        expand("data/mrxcat_simulations/snr{snr}_{replicate}/csvs/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.csv", 
+        snr=SNR, replicate=REPLICATE, number=NUMBER),
 
 rule SimSaveAsCsv:
     input:
         "data/mrxcat_simulations"
     output:
-        # "data/mrxcat_simulations/{snr_variation}/csvs/{csv_name}.csv"
-        expand("data/mrxcat_simulations/snr{snr}_{replicate}/csvs/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.csv", snr=SNR, replicate=REPLICATE, number=NUMBER)
+        expand("data/mrxcat_simulations/snr{snr}_{replicate}/csvs/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.csv", 
+        snr=SNR, replicate=REPLICATE, number=NUMBER)
     conda:
         "octave_env.yaml"
     shell:
         "cd code/mrxcat_simulations;"
         "octave SaveAsCsv.m --no-gui"
 
-#rule print:
-#   run:
-#       print(expand("data/mrxcat_simulations/{snr}_{replicate}/csvs/", snr=SNR, replicate=REPLICATE))
-
-# rule print:
-#     run:
-#         print(SNR2)
+rule SimConvertCsvToNifti:
+    input:
+        expand("data/mrxcat_simulations/snr{snr}_{replicate}/csvs/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.csv", 
+        snr=SNR, replicate=REPLICATE, number=NUMBER)
+    output:
+        expand("data/mrxcat_simulations/snr{snr}_{replicate}/nifti/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.nii.gz", 
+        snr=SNR, replicate=REPLICATE, number=NUMBER)
+    conda:
+        "conversion_sim.yaml"
+    script:
+        "../code/mrxcat_simulations/convert_csv_to_nifti.py"
