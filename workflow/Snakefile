@@ -1,21 +1,17 @@
-#SNR, REPLICATE, _  = glob_wildcards("data/mrxcat_simulations/{snr}_{replicate}/{cpx}.cpx")
-#SNR = glob_wildcards("bla/{snr}")
-#SNR2 = [x.replace('_', '/') for x in SNR[0]]
 SNR = (5, 10, 20, 30)
 REPLICATE = range(1,6)
 NUMBER = range(1,25)
 
 rule all:
     input:
-        expand("data/mrxcat_simulations/snr{snr}_{replicate}/csvs/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.csv", 
-        snr=SNR, replicate=REPLICATE, number=NUMBER),
+        expand("data/mrxcat_simulations/snr{snr}_{replicate}/nifti/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.nii.gz", 
+        snr=SNR, replicate=REPLICATE, number=NUMBER)
 
 rule SimSaveAsCsv:
     input:
         "data/mrxcat_simulations"
     output:
-        expand("data/mrxcat_simulations/snr{snr}_{replicate}/csvs/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.csv", 
-        snr=SNR, replicate=REPLICATE, number=NUMBER)
+        "data/mrxcat_simulations/snr{snr}_{replicate}/csvs/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.csv"
     conda:
         "octave_env.yaml"
     shell:
@@ -24,11 +20,9 @@ rule SimSaveAsCsv:
 
 rule SimConvertCsvToNifti:
     input:
-        expand("data/mrxcat_simulations/snr{snr}_{replicate}/csvs/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.csv", 
-        snr=SNR, replicate=REPLICATE, number=NUMBER)
+        "data/mrxcat_simulations/snr{snr}_{replicate}/csvs/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.csv"
     output:
-        expand("data/mrxcat_simulations/snr{snr}_{replicate}/nifti/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.nii.gz", 
-        snr=SNR, replicate=REPLICATE, number=NUMBER)
+        "data/mrxcat_simulations/snr{snr}_{replicate}/nifti/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.nii.gz"
     conda:
         "conversion_sim.yaml"
     script:
