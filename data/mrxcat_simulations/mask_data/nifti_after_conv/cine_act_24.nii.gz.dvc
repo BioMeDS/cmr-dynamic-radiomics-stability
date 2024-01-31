@@ -1,0 +1,5 @@
+outs:
+- md5: 64bd24dca485d7586dfb114db64780cd
+  size: 48025
+  hash: md5
+  path: cine_act_24.nii.gz
