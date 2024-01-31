@@ -2,16 +2,19 @@ SNR = (5, 10, 20, 30)
 REPLICATE = range(1,6)
 NUMBER = range(1,25)
 
+
 rule all:
     input:
         expand("data/mrxcat_simulations/snr{snr}_{replicate}/nifti/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.nii.gz", 
-        snr=SNR, replicate=REPLICATE, number=NUMBER)
+        snr=SNR, replicate=REPLICATE, number=NUMBER),
+        expand("data/mrxcat_simulations/mask_data/nifti_after_conv/cine_act_{masks}.nii.gz", masks=NUMBER)
 
 rule SimSaveAsCsv:
     input:
         "data/mrxcat_simulations"
     output:
-        "data/mrxcat_simulations/snr{snr}_{replicate}/csvs/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.csv"
+        expand("data/mrxcat_simulations/snr{snr}_{replicate}/csvs/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.csv",
+               snr=SNR, replicate=REPLICATE, number=NUMBER)
     conda:
         "octave_env.yaml"
     shell:
@@ -27,3 +30,13 @@ rule SimConvertCsvToNifti:
         "conversion_sim.yaml"
     script:
         "../code/mrxcat_simulations/convert_csv_to_nifti.py"
+
+rule SimConvertMaskBinToNifti:
+    input:
+        "data/mrxcat_simulations/mask_data/bin_files/cine_act_{masks}.bin"
+    output:
+        "data/mrxcat_simulations/mask_data/nifti_after_conv/cine_act_{masks}.nii.gz"
+    conda:
+        "conversion_sim.yaml"
+    script:
+        "../code/mrxcat_simulations/bin_convert.py"
