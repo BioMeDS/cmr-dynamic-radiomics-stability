@@ -50,3 +50,28 @@ rule SimMaskConvToMyc:
         "conversion_sim.yaml"
     script:
         "../code/mrxcat_simulations/conv_msk_to_myc.py"
+
+rule UnpackNifti:
+    input:
+        "data/mrxcat_simulations/mask_data/nifti_myc/cine_act_{masks}.nii.gz"
+    output:
+        "data/mrxcat_simulations/mask_data/nifti_myc/cine_act_{masks}.nii"
+    shell:
+        "gzip -d {input}"
+
+rule RemovePapillaryMusclesFromMask:
+    input:
+        "data/mrxcat_simulations/mask_data/nifti_myc/cine_act_{masks}.nii",
+        "data/mrxcat_simulations/mask_data/nifti_myc_cleared/{masks}.xdelta"
+    output:
+        "data/mrxcat_simulations/mask_data/nifti_myc_cleared/{masks}.nii"
+    script:
+        "xpatcher.sh"
+
+rule RepackNifti:
+    input:
+        "data/mrxcat_simulations/mask_data/nifti_myc_cleared/{masks}.nii"
+    output:
+        "data/mrxcat_simulations/mask_data/nifti_myc_cleared/{masks}.nii.gz"
+    shell:
+        "gzip {input}"
