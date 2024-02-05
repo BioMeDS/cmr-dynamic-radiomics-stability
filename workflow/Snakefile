@@ -7,7 +7,7 @@ rule all:
     input:
         expand("data/mrxcat_simulations/snr{snr}_{replicate}/nifti/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.nii.gz", 
         snr=SNR, replicate=REPLICATE, number=NUMBER),
-        expand("data/mrxcat_simulations/mask_data/nifti_after_conv/cine_act_{masks}.nii.gz", masks=NUMBER)
+        expand("data/mrxcat_simulations/mask_data/nifti_myc_cleared/{masks}.nii.gz", masks=NUMBER)
 
 rule SimSaveAsCsv:
     input:
@@ -40,3 +40,13 @@ rule SimConvertMaskBinToNifti:
         "conversion_sim.yaml"
     script:
         "../code/mrxcat_simulations/bin_convert.py"
+
+rule SimMaskConvToMyc:
+    input:
+        "data/mrxcat_simulations/mask_data/nifti_after_conv/cine_act_{masks}.nii.gz"
+    output:
+        "data/mrxcat_simulations/mask_data/nifti_myc/cine_act_{masks}.nii.gz"
+    conda:
+        "conversion_sim.yaml"
+    script:
+        "../code/mrxcat_simulations/conv_msk_to_myc.py"
