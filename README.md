@@ -16,6 +16,7 @@ Code is in [code/mrxcat_simulations](code/mrxcat_simulations) and simulation res
 The simulations were performed with Matlab version R2021b. Simulation results have to be converted from the cpx format to the nifti format for further analysis. Steps include:
 1. .cpx to .csv convertion
 2. .csv to .nifti convertion
+The masks were then extracted from the breathhold phantom used for the simulation in MRXCAT.
 
 ## References
 1. Wissmann, L., Santelli, C., Segars, W.P. et al. MRXCAT: Realistic numerical phantoms for cardiovascular magnetic resonance. J Cardiovasc Magn Reson 16, 63 (2014). https://doi.org/10.1186/s12968-014-0063-3
