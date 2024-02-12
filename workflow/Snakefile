@@ -5,9 +5,13 @@ NUMBER = range(1,25)
 
 rule all:
     input:
-        expand("data/mrxcat_simulations/snr{snr}_{replicate}/nifti/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.nii.gz", 
+        # expand("data/mrxcat_simulations/snr{snr}_{replicate}/nifti/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.nii.gz", 
+        # snr=SNR, replicate=REPLICATE, number=NUMBER),
+        # expand("data/mrxcat_simulations/mask_data/nifti_myc_cleared/{masks}.nii.gz", masks=NUMBER),
+        expand("analysis/feature_extraction/mrxcat_simulation/snr{snr}_{replicate}/{number}/image.nii.gz", 
         snr=SNR, replicate=REPLICATE, number=NUMBER),
-        expand("data/mrxcat_simulations/mask_data/nifti_myc_cleared/{masks}.nii.gz", masks=NUMBER)
+        expand("analysis/feature_extraction/mrxcat_simulation/snr{snr}_{replicate}/{number}/segmentation.nii.gz", 
+        snr=SNR, replicate=REPLICATE, number=NUMBER)
 
 rule SimSaveAsCsv:
     input:
@@ -33,9 +37,9 @@ rule SimConvertCsvToNifti:
 
 rule SimConvertMaskBinToNifti:
     input:
-        "data/mrxcat_simulations/mask_data/bin_files/cine_act_{masks}.bin"
+        "data/mrxcat_simulations/mask_data/bin_files/cine_act_{number}.bin"
     output:
-        "data/mrxcat_simulations/mask_data/nifti_after_conv/cine_act_{masks}.nii.gz"
+        "data/mrxcat_simulations/mask_data/nifti_after_conv/cine_act_{number}.nii.gz"
     conda:
         "conversion_sim.yaml"
     script:
@@ -43,9 +47,9 @@ rule SimConvertMaskBinToNifti:
 
 rule SimMaskSegMyc:
     input:
-        "data/mrxcat_simulations/mask_data/nifti_after_conv/cine_act_{masks}.nii.gz"
+        "data/mrxcat_simulations/mask_data/nifti_after_conv/cine_act_{number}.nii.gz"
     output:
-        "data/mrxcat_simulations/mask_data/nifti_myc/cine_act_{masks}.nii.gz"
+        "data/mrxcat_simulations/mask_data/nifti_myc/cine_act_{number}.nii.gz"
     conda:
         "conversion_sim.yaml"
     script:
@@ -53,25 +57,35 @@ rule SimMaskSegMyc:
 
 rule UnpackNifti:
     input:
-        "data/mrxcat_simulations/mask_data/nifti_myc/cine_act_{masks}.nii.gz"
+        "data/mrxcat_simulations/mask_data/nifti_myc/cine_act_{number}.nii.gz"
     output:
-        "data/mrxcat_simulations/mask_data/nifti_myc/cine_act_{masks}.nii"
+        "data/mrxcat_simulations/mask_data/nifti_myc/cine_act_{number}.nii"
     shell:
-        "gzip -d {input}"
+        "gzip -dk {input}"
 
 rule RemovePapillaryMusclesFromMask:
     input:
-        "data/mrxcat_simulations/mask_data/nifti_myc/cine_act_{masks}.nii",
-        "data/mrxcat_simulations/mask_data/nifti_myc_cleared/{masks}.xdelta"
+        "data/mrxcat_simulations/mask_data/nifti_myc/cine_act_{number}.nii",
+        "data/mrxcat_simulations/mask_data/nifti_myc_cleared/{number}.xdelta"
     output:
-        "data/mrxcat_simulations/mask_data/nifti_myc_cleared/{masks}.nii"
+        "data/mrxcat_simulations/mask_data/nifti_myc_cleared/{number}.nii"
     script:
         "xpatcher.sh"
 
 rule RepackNifti:
     input:
-        "data/mrxcat_simulations/mask_data/nifti_myc_cleared/{masks}.nii"
+        "data/mrxcat_simulations/mask_data/nifti_myc_cleared/{number}.nii"
     output:
-        "data/mrxcat_simulations/mask_data/nifti_myc_cleared/{masks}.nii.gz"
+        "data/mrxcat_simulations/mask_data/nifti_myc_cleared/{number}.nii.gz"
     shell:
-        "gzip {input}"
+        "gzip -k {input}"
+
+rule CopySimFilesForExtraction:
+    input:
+        "data/mrxcat_simulations/snr{snr}_{replicate}/nifti/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.nii.gz",
+        "data/mrxcat_simulations/mask_data/nifti_myc_cleared/{number}.nii.gz"
+    output:
+        "analysis/feature_extraction/mrxcat_simulation/snr{snr}_{replicate}/{number}/image.nii.gz",
+        "analysis/feature_extraction/mrxcat_simulation/snr{snr}_{replicate}/{number}/segmentation.nii.gz"
+    shell:
+        "cp {input[0]} {output[0]}; cp {input[1]} {output[1]}"
