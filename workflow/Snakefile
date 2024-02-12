@@ -41,7 +41,7 @@ rule SimConvertMaskBinToNifti:
     script:
         "../code/mrxcat_simulations/bin_convert.py"
 
-rule SimMaskConvToMyc:
+rule SimMaskSegMyc:
     input:
         "data/mrxcat_simulations/mask_data/nifti_after_conv/cine_act_{masks}.nii.gz"
     output:

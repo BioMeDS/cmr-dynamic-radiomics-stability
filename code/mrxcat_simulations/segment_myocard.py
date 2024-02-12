@@ -1,0 +1,12 @@
+import numpy as np
+import nibabel as nib
+
+def segment_myocard(org_file, segmented_file):
+    mask = nib.load(org_file)
+    mask_data = mask.get_fdata()
+    mask_data = mask_data[128:640, 256:768, :]
+    mask_data = mask_data == 1
+    mask_data = mask_data.astype('<f8')
+    nib.save(nib.Nifti1Image(mask_data, np.eye(4)), segmented_file)
+
+segment_myocard(snakemake.input[0], snakemake.output[0])
