@@ -49,7 +49,7 @@ rule SimMaskSegMyc:
     conda:
         "conversion_sim.yaml"
     script:
-        "../code/mrxcat_simulations/conv_msk_to_myc.py"
+        "../code/mrxcat_simulations/segment_myocard.py"
 
 rule UnpackNifti:
     input:
