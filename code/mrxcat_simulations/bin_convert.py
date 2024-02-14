@@ -54,16 +54,6 @@ def convertXCATBinaryFile( inputXCATBinFileName,
                            voxelSize, 
                            convertAtnToHU=False,  
                            ctConversionAttenuationEnergy=140.0 ):
-    
-    # # Derive the output file name
-    # if outFileName is None:
-    #     if convertAtnToHU:
-    #         outputFileName = outputDir + os.path.split(inputXCATBinFileName)[1].split('.bin')[0] + '_HU.nii.gz'        
-    #     else:
-    #         outputFileName = outputDir + os.path.split(inputXCATBinFileName)[1].split('.bin')[0] + '.nii.gz'        
-    # else:
-    #         outputFileName = outputDir + outFileName     
-        
         
     print(" ")
     print("  Converting with parameters:")
@@ -72,12 +62,7 @@ def convertXCATBinaryFile( inputXCATBinFileName,
     print("  - image dimension:   " + str(imageDimension))
     print("  - voxel size:        " + str(voxelSize))
     print(" ")
-
-    # if not os.path.exists(outputDir):
-    #     os.makedirs(outputDir, exist_ok=True)
-    #     print("... Created output directory ...")
-
-
+    
     print("... Starting conversion ...")
 
         
