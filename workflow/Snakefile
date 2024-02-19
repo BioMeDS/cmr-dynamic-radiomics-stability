@@ -5,13 +5,14 @@ NUMBER = range(1,25)
 
 rule all:
     input:
-        # expand("data/mrxcat_simulations/snr{snr}_{replicate}/nifti/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.nii.gz", 
+        # expand("analysis/feature_extraction/mrxcat_simulation/snr{snr}_{replicate}/{number}/image.nii.gz", 
         # snr=SNR, replicate=REPLICATE, number=NUMBER),
-        # expand("data/mrxcat_simulations/mask_data/nifti_myc_cleared/{masks}.nii.gz", masks=NUMBER),
-        expand("analysis/feature_extraction/mrxcat_simulation/snr{snr}_{replicate}/{number}/image.nii.gz", 
-        snr=SNR, replicate=REPLICATE, number=NUMBER),
-        expand("analysis/feature_extraction/mrxcat_simulation/snr{snr}_{replicate}/{number}/segmentation.nii.gz", 
-        snr=SNR, replicate=REPLICATE, number=NUMBER)
+        # expand("analysis/feature_extraction/mrxcat_simulation/snr{snr}_{replicate}/{number}/segmentation.nii.gz", 
+        # snr=SNR, replicate=REPLICATE, number=NUMBER),
+        # expand("analysis/feature_extraction/mrxcat_simulation/snr{snr}_{replicate}", 
+        # snr=SNR, replicate=REPLICATE),
+        expand("analysis/features/mrxcat_simulation/snr{snr}_{replicate}.csv", 
+        snr=SNR, replicate=REPLICATE),
 
 rule SimSaveAsCsv:
     input:
@@ -89,3 +90,13 @@ rule CopySimFilesForExtraction:
         "analysis/feature_extraction/mrxcat_simulation/snr{snr}_{replicate}/{number}/segmentation.nii.gz"
     shell:
         "cp {input[0]} {output[0]}; cp {input[1]} {output[1]}"
+
+rule FeatureExtractionSimulation:
+    input:
+        "analysis/feature_extraction/mrxcat_simulation/snr{snr}_{replicate}",
+    output:
+        "analysis/features/mrxcat_simulation/snr{snr}_{replicate}.csv"
+    conda:
+        "feature_extraction.yaml"
+    script:
+        "../code/mrxcat_simulations/feature_extraction.py"
