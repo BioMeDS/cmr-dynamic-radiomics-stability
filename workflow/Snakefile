@@ -1,6 +1,7 @@
 SNR = (5, 10, 20, 30)
 REPLICATE = range(1,6)
 NUMBER = range(1,25)
+FILE = ("image", "segmentation")
 
 
 rule all:
@@ -18,8 +19,7 @@ rule SimSaveAsCsv:
     input:
         "data/mrxcat_simulations"
     output:
-        expand("data/mrxcat_simulations/snr{snr}_{replicate}/csvs/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.csv",
-               snr=SNR, replicate=REPLICATE, number=NUMBER)
+        "data/mrxcat_simulations/snr{snr}_{replicate}/csvs/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.csv",
     conda:
         "octave_env.yaml"
     shell:
@@ -87,13 +87,14 @@ rule CopySimFilesForExtraction:
         "data/mrxcat_simulations/mask_data/nifti_myc_cleared/{number}.nii.gz"
     output:
         "analysis/feature_extraction/mrxcat_simulation/snr{snr}_{replicate}/{number}/image.nii.gz",
-        "analysis/feature_extraction/mrxcat_simulation/snr{snr}_{replicate}/{number}/segmentation.nii.gz"
+        "analysis/feature_extraction/mrxcat_simulation/snr{snr}_{replicate}/{number}/segmentation.nii.gz",
     shell:
         "cp {input[0]} {output[0]}; cp {input[1]} {output[1]}"
 
 rule FeatureExtractionSimulation:
     input:
-        "analysis/feature_extraction/mrxcat_simulation/snr{snr}_{replicate}",
+        expand("analysis/feature_extraction/mrxcat_simulation/snr{snr}_{replicate}/{number}/{file}.nii.gz",
+               snr=SNR, replicate=REPLICATE, number=NUMBER, file=FILE)
     output:
         "analysis/features/mrxcat_simulation/snr{snr}_{replicate}.csv"
     conda:

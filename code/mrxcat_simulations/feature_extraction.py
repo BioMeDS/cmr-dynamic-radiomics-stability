@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
+from pathlib import Path
 
 from autorad.utils.preprocessing import get_paths_with_separate_folder_per_case
 from autorad.data.dataset import ImageDataset
@@ -32,6 +33,5 @@ def test_segmentation(input_folder):
     )
     image_dataset.plot_examples(n=10, window=None)
 
-feature_extraction(snakemake.input[0], snakemake.output[0])
-    
-# snakemake.input[0], snakemake.output[0]
+feature_extraction(Path(snakemake.input[0]).parent.parent, snakemake.output[0])
+
