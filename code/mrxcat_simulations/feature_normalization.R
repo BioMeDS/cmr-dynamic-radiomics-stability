@@ -26,7 +26,9 @@ normalize_feature_df <- function(df_location, save_location, standard_df) {
 }
 
 normalize_feature_df(
-  snakemake@input[[1]],
+  snakemake@input[[1]] %>%
+    file.path %>%
+    dirname,
   snakemake@output[[1]],
   snakemake@params
 )

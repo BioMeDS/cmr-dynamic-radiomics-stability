@@ -12,9 +12,9 @@ rule all:
         # snr=SNR, replicate=REPLICATE, number=NUMBER),
         # expand("analysis/feature_extraction/mrxcat_simulation/snr{snr}_{replicate}", 
         # snr=SNR, replicate=REPLICATE),
-        expand("analysis/features/mrxcat_simulation/snr{snr}_{replicate}.csv", 
-        snr=SNR, replicate=REPLICATE),
-
+        # expand("analysis/features/mrxcat_simulation/snr{snr}_{replicate}.csv", 
+        # snr=SNR, replicate=REPLICATE),
+        "analysis/features_normalized/mrxcat_simulation/features.csv"
 rule SimSaveAsCsv:
     input:
         "data/mrxcat_simulations"
@@ -93,11 +93,24 @@ rule CopySimFilesForExtraction:
 
 rule FeatureExtractionSimulation:
     input:
-        expand("analysis/feature_extraction/mrxcat_simulation/snr{snr}_{replicate}/{number}/{file}.nii.gz",
-               snr=SNR, replicate=REPLICATE, number=NUMBER, file=FILE)
+        expand("analysis/feature_extraction/mrxcat_simulation/snr{{snr}}_{{replicate}}/{number}/{file}.nii.gz",
+               number=NUMBER, file=FILE)
     output:
         "analysis/features/mrxcat_simulation/snr{snr}_{replicate}.csv"
     conda:
         "feature_extraction.yaml"
     script:
         "../code/mrxcat_simulations/feature_extraction.py"
+
+rule SimulationFeatureNormalization:
+    input:
+        expand("analysis/features/mrxcat_simulation/snr{snr}_{replicate}.csv", 
+               snr=SNR, replicate=REPLICATE)
+    output:
+        "analysis/features_normalized/mrxcat_simulation/features.csv"
+    conda:
+        "feature_extraction.yaml"
+    params:
+        "snr30_1.csv"
+    script:
+        "../code/mrxcat_simulations/feature_normalization.R"
