@@ -9,7 +9,7 @@ import logging
 
 def feature_extraction(input_folder, output_file):
     paths_df = get_paths_with_separate_folder_per_case(f"{input_folder}", relative=True)
-    logging.getLogger().setLevel(logging.CRITICAL)
+    # logging.getLogger().setLevel(logging.CRITICAL)
     image_dataset = ImageDataset(
        paths_df,
        ID_colname="ID",
@@ -34,4 +34,3 @@ def test_segmentation(input_folder):
     image_dataset.plot_examples(n=10, window=None)
 
 feature_extraction(Path(snakemake.input[0]).parent.parent, snakemake.output[0])
-
