@@ -9,7 +9,6 @@ import logging
 
 def feature_extraction(input_folder, output_file):
     paths_df = get_paths_with_separate_folder_per_case(f"{input_folder}", relative=True)
-    # logging.getLogger().setLevel(logging.CRITICAL)
     image_dataset = ImageDataset(
        paths_df,
        ID_colname="ID",
