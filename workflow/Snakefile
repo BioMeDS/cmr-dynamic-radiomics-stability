@@ -14,7 +14,8 @@ rule all:
         # snr=SNR, replicate=REPLICATE),
         # expand("analysis/features/mrxcat_simulation/snr{snr}_{replicate}.csv", 
         # snr=SNR, replicate=REPLICATE),
-        "analysis/features_normalized/mrxcat_simulation/features.csv"
+        # "analysis/features_normalized/mrxcat_simulation/features.csv"
+        "analysis/calculated_mae/mrxcat_simulation/mae.csv"
 rule SimSaveAsCsv:
     input:
         "data/mrxcat_simulations"
@@ -114,3 +115,13 @@ rule SimulationFeatureNormalization:
         "snr30_1.csv"
     script:
         "../code/mrxcat_simulations/feature_normalization.R"
+
+rule SimulationCalculateMae:
+    input:
+        "analysis/features_normalized/mrxcat_simulation/features.csv"
+    output:
+        "analysis/calculated_mae/mrxcat_simulation/mae.csv"
+    conda:
+        "calculate_mae.yaml"
+    script:
+        "../code/mrxcat_simulations/calculate_mae.py"

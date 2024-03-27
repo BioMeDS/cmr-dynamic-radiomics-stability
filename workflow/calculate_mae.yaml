@@ -1,0 +1,8 @@
+dependencies:
+- pandas
+- pip
+- python=3.10
+- nibabel
+- pip:
+  - similaritymeasures
+ 
