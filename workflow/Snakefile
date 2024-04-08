@@ -15,7 +15,12 @@ rule all:
         # expand("analysis/features/mrxcat_simulation/snr{snr}_{replicate}.csv", 
         # snr=SNR, replicate=REPLICATE),
         # "analysis/features_normalized/mrxcat_simulation/features.csv"
-        "analysis/calculated_mae/mrxcat_simulation/mae.csv"
+        # "analysis/calculated_mae/mrxcat_simulation/mae.csv"
+        "analysis/plots/mrxcat_simulation/features_curves/top12_features.png",
+        "analysis/plots/mrxcat_simulation/total_mae_vs_snr_mae.png",
+        "analysis/plots/mrxcat_simulation/total_mae_vs_snr_mae_1.png",
+        "analysis/plots/mrxcat_simulation/rank_barcode.png",
+
 rule SimSaveAsCsv:
     input:
         "data/mrxcat_simulations"
@@ -110,7 +115,7 @@ rule SimulationFeatureNormalization:
     output:
         "analysis/features_normalized/mrxcat_simulation/features.csv"
     conda:
-        "feature_extraction.yaml"
+        "tidyverse.yaml"
     params:
         "snr30_1.csv"
     script:
@@ -125,3 +130,17 @@ rule SimulationCalculateMae:
         "calculate_mae.yaml"
     script:
         "../code/mrxcat_simulations/calculate_mae.py"
+
+rule GeneratePlotsRelatedToPlots:
+    input:
+        "analysis/features_normalized/mrxcat_simulation/features.csv", 
+        "analysis/calculated_mae/mrxcat_simulation/mae.csv"
+    output:
+        "analysis/plots/mrxcat_simulation/features_curves/top12_features.png",
+        "analysis/plots/mrxcat_simulation/total_mae_vs_snr_mae.png",
+        "analysis/plots/mrxcat_simulation/total_mae_vs_snr_mae_1.png",
+        "analysis/plots/mrxcat_simulation/rank_barcode.png",
+    conda:
+        "tidyverse.yaml"
+    script:
+        "../code/mrxcat_simulations/feature_plots.R"
