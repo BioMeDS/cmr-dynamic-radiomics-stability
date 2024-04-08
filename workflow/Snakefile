@@ -131,7 +131,7 @@ rule SimulationCalculateMae:
     script:
         "../code/mrxcat_simulations/calculate_mae.py"
 
-rule GeneratePlotsRelatedToPlots:
+rule GeneratePlots:
     input:
         "analysis/features_normalized/mrxcat_simulation/features.csv", 
         "analysis/calculated_mae/mrxcat_simulation/mae.csv"
