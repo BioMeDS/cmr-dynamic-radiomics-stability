@@ -1,0 +1,5 @@
+outs:
+- md5: 44ab5613f0c64c2b8868396f86eed141
+  size: 1103448
+  hash: md5
+  path: wavelet-HHH_gldm_LargeDependenceHighGrayLevelEmphasis.png

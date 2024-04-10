@@ -1,0 +1,5 @@
+outs:
+- md5: 94742b90aebe3837bfffca7b13c62f46
+  size: 574852
+  hash: md5
+  path: wavelet-HHL_firstorder_RobustMeanAbsoluteDeviation.png

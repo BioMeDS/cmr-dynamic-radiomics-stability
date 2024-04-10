@@ -1,0 +1,5 @@
+outs:
+- md5: 9a433290b60910505e778cdb6037b68c
+  size: 106457
+  hash: md5
+  path: wavelet-LLH_firstorder_Energy.png

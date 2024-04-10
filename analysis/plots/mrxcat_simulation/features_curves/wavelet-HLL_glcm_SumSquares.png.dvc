@@ -1,0 +1,5 @@
+outs:
+- md5: e2c53a1fd533cf5696ac914d665d706c
+  size: 651844
+  hash: md5
+  path: wavelet-HLL_glcm_SumSquares.png

@@ -1,0 +1,5 @@
+outs:
+- md5: cca6b4563e8786f1001b2b368c2802ba
+  size: 452445
+  hash: md5
+  path: wavelet-HLL_firstorder_TotalEnergy.png

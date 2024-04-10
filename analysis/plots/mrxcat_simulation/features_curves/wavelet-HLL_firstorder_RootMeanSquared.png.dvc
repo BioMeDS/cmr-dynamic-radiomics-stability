@@ -1,0 +1,5 @@
+outs:
+- md5: 6b3ece4a800fd8ab612de2aecf9de83e
+  size: 824003
+  hash: md5
+  path: wavelet-HLL_firstorder_RootMeanSquared.png

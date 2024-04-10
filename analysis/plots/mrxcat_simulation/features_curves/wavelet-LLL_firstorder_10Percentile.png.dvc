@@ -1,0 +1,5 @@
+outs:
+- md5: 2cdaf9f3b77f5af04f145d34999e5aa5
+  size: 352853
+  hash: md5
+  path: wavelet-LLL_firstorder_10Percentile.png

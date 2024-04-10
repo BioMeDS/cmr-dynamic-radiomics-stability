@@ -1,0 +1,5 @@
+outs:
+- md5: 2e922f235123fb75816529e4bdcfa9ef
+  size: 791871
+  hash: md5
+  path: wavelet-LLL_glcm_ClusterTendency.png

@@ -1,0 +1,5 @@
+outs:
+- md5: a20c3551711906890b13ca36ba3d0495
+  size: 1005655
+  hash: md5
+  path: wavelet-HLL_firstorder_Mean.png

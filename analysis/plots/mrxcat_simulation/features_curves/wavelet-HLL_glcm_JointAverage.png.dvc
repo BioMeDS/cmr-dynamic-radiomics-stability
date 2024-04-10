@@ -1,0 +1,5 @@
+outs:
+- md5: bf42082e0f726753fed0fd25b746d53e
+  size: 863339
+  hash: md5
+  path: wavelet-HLL_glcm_JointAverage.png

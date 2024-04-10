@@ -1,0 +1,5 @@
+outs:
+- md5: dfd9be2761a8a7abea95f93274a12a3f
+  size: 215485
+  hash: md5
+  path: total_mae_vs_snr_mae.png

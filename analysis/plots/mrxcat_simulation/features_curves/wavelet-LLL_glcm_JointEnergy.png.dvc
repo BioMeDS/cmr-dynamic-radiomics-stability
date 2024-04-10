@@ -1,0 +1,5 @@
+outs:
+- md5: 4178edd3149b4a4f3789c259094b2ab4
+  size: 618504
+  hash: md5
+  path: wavelet-LLL_glcm_JointEnergy.png
