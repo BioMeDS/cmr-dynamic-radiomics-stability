@@ -1,0 +1,4 @@
+dependencies:
+- numpy
+- nibabel
+- python=3.10
