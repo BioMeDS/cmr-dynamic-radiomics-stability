@@ -1,0 +1,6 @@
+outs:
+- md5: ee9419dd8c0f259c50be28a7a3e9da9e.dir
+  size: 26592510597
+  nfiles: 400
+  hash: md5
+  path: data_noise

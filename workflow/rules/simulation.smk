@@ -1,6 +1,6 @@
 SNR = (5, 10, 20, 30)
-REPLICATE = range(1,6)
-NUMBER = range(1,25)
+REPLICATE = range(1, 6)
+NUMBER = range(1, 25)
 FILE = ("image", "segmentation")
 
 rule SimSaveAsCsv:

@@ -1,0 +1,9 @@
+dependencies:
+- numpy
+- python=3.10
+- pytorch
+- pip
+- torchio
+pip:
+- torchio
+- nibabel

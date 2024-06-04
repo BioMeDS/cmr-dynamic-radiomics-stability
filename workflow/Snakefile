@@ -1,25 +1,31 @@
+import itertools
 DIGITS = range(61, 81)
+NUMBERS = range(61, 81)
 SEEDS = ('042', '069', '151', '401', '404')
+NOISE = ("0.010", "0.020", "0.030", "0.040")
+ALL = list(itertools.product(DIGITS, ("_"), SEEDS, ("_"), NOISE))
 TIME = range(0, 30)
 from glob import glob
 
+def aggregate_input_Acdc(wildcards):
+    dir = checkpoints.SplitSlicesAcdc.get(**wildcards).output[0]
+    return glob(f"{dir}/*/*")
+
+def aggregate_input_noise_Acdc(wildcards):
+    dir = checkpoints.SplitSlicesNoiseAcdc.get(**wildcards).output[0]
+    return glob(f"{dir}/*/*")
 
 rule all:
     input:
-        # "analysis/plots/mrxcat_simulation/features_curves/top12_features.png",
-        # "analysis/plots/mrxcat_simulation/total_mae_vs_snr_mae.png",
-        # "analysis/plots/mrxcat_simulation/total_mae_vs_snr_mae_1.png",
-        # "analysis/plots/mrxcat_simulation/rank_barcode.png",
-        # expand("analysis/feature_extraction/ACDC/patient0{digits}/",
-        #        digits = DIGITS),
-        # expand("analysis/feature_extraction/ACDC/patient0{digits}/",
-        #        digits = DIGITS),
-        expand("aggregated/{digits}.txt",
-               digits = DIGITS)
+        expand("analysis/features/ACDC/patient0{digits}.csv",
+               digits = DIGITS),
+        expand("analysis/features/ACDC_noise/patient0{numbers}_{noise}_{seed}.csv",
+               numbers = NUMBERS, noise = NOISE, seed = SEEDS),
+
 
 # include: "rules/simulation.smk", "rules/ACDC.smk"
 
-checkpoint SplitSlices:
+checkpoint SplitSlicesAcdc:
     input:
         "data/ACDC_dataset/data/patient0{digits}/patient0{digits}_4d.nii.gz", 
         "data/ACDC_dataset/masks/patient0{digits}/pat0{digits}_masks_4d.nii.gz"
@@ -33,18 +39,56 @@ checkpoint SplitSlices:
         "../code/seperate_slices.py"
 
 
-def aggregate_input(wildcards):
-    # decision based on content of output file
-    # Important: use the method open() of the returned file!
-    # This way, Snakemake is able to automatically download the file if it is generated in
-    # a cloud environment without a shared filesystem.
-    dir = checkpoints.SplitSlices.get(digits=wildcards.digits).output[0]
-    return glob(f"{dir}/*/*")
-        
-rule aggregate:
+checkpoint SplitSlicesNoiseAcdc:
     input:
-        aggregate_input
+        "data/ACDC_dataset/data_noise/patient0{numbers}_{noise}_{seed}/patient0{numbers}_4d.nii.gz", 
+        "data/ACDC_dataset/masks/patient0{numbers}/pat0{numbers}_masks_4d.nii.gz"
     output:
-        "aggregated/{digits}.txt"
-    shell:
-        "echo {input} > {output}"
+        directory("analysis/feature_extraction/ACDC_noise/patient0{numbers}_{noise}_{seed}")
+    params:
+        "0"
+    conda:
+        "split.yaml"
+    script:
+        "../code/seperate_slices.py"
+
+rule GenerateNoiseImagesAcdc:
+    input:
+        "data/ACDC_dataset/data/patient0{numbers}/patient0{numbers}_4d.nii.gz"
+    output:
+        "data/ACDC_dataset/data_noise/patient0{numbers}_{noise}_{seed}/patient0{numbers}_4d.nii.gz"
+    conda:
+        "noise.yaml"
+    params:
+        "{seed}",
+        "{noise}"
+    script:
+        "../code/add_artifical_noise.py"
+        
+rule FeatureExtractionAcdc:
+    input:
+        aggregate_input_Acdc
+    output:
+        "analysis/features/ACDC/patient0{digits}.csv"
+    conda:
+        "feature_extraction.yaml"
+    script:
+        "../code/mrxcat_simulations/feature_extraction.py"
+
+rule RenameGroundTruthAcdc:
+    input:
+        "analysis/features/ACDC/patient0{digits}.csv"
+    output:
+        "analysis/features/ACDC_noise/patient0{digits}_0.000_0.csv"
+    script:
+        "mv {input[0]} {output[0]}"
+        
+rule FeatureExtractionNoiseAcdc:
+    input:
+        aggregate_input_noise_Acdc
+    output:
+        "analysis/features/ACDC_noise/patient0{numbers}_{noise}_{seed}.csv"
+    conda:
+        "feature_extraction.yaml"
+    script:
+        "../code/mrxcat_simulations/feature_extraction.py"
