@@ -1,8 +1,11 @@
 library(tidyverse)
 
-normalize_feature_df <- function(df_location, save_location, standard_df) {
+normalize_feature_df <- function(df_location, save_location, standard_df, reg) {
   files <- dir(df_location)
   names(files) <- files
+  if (reg != FALSE) {
+    files <- grep(reg, files, value = TRUE)
+  }
   data <- files %>%
     map_df(
       ~read_csv(paste0(str_glue("{df_location}/"), .x), show_col_types = FALSE),
@@ -20,7 +23,6 @@ normalize_feature_df <- function(df_location, save_location, standard_df) {
   data_long <- left_join(data, data_left_join, by = c("feature")) %>%
     mutate(value = (value - mean_value) / sd_value, .keep = "unused") %>%
     pivot_wider(names_from = feature, values_from = value)
-  files <- data_long %>% distinct(file)
   data_long %>%
     write_csv(file.path(save_location))
 }
@@ -30,5 +32,6 @@ normalize_feature_df(
     file.path %>%
     dirname,
   snakemake@output[[1]],
-  snakemake@params
+  snakemake@params[[1]],
+  snakemake@params[[2]]
 )
