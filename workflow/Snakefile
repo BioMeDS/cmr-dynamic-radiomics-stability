@@ -21,8 +21,8 @@ def aggregate_input_noise_Acdc(wildcards):
 
 rule all:
     input:
-        expand("analysis/features_normalized/ACDC/patient0{digits}.csv", 
-               digits = DIGITS,)
+        expand("analysis/calculated_mae/ADDC/mae_patient0{digits}.csv", 
+               digits = DIGITS)
 
 # include: "rules/simulation.smk", "rules/ACDC.smk"
 
@@ -100,3 +100,13 @@ rule AcdcFeatureNormalization:
         "patient0{digits}"
     script:
         "../code/mrxcat_simulations/feature_normalization.R"
+
+rule AcdcCalculateMae:
+    input:
+        "analysis/features_normalized/ACDC/patient0{digits}.csv"
+    output:
+        "analysis/calculated_mae/ADDC/mae_patient0{digits}.csv"
+    conda:
+        "calculate_mae.yaml"
+    script:
+        "../code/mrxcat_simulations/calculate_mae.py"
