@@ -99,7 +99,8 @@ rule SimulationFeatureNormalization:
     conda:
         "../tidyverse.yaml"
     params:
-        "snr30_1.csv"
+        "snr30_1.csv",
+        ""
     script:
         "../../code/mrxcat_simulations/feature_normalization.R"
 
