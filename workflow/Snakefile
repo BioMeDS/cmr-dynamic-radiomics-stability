@@ -1,11 +1,32 @@
+DIGITS = range(61, 81)
+SEEDS = ('042', '069', '151', '401', '404')
+NOISE = ("0.010", "0.020", "0.030", "0.040")
+from glob import glob
+import os
+from pathlib import Path
+
 include: "rules/ACDC.smk"
 include: "rules/simulation.smk"
+include: "rules/subject.smk"
+
+def remove_suffix(filename:Path):
+    while filename.suffix:
+        filename = filename.with_suffix('')
+    return filename
+
+subject_data = glob("data/subject_data/*/*[!mask].nii.gz")
+
+FOLDER = [os.path.basename(Path(x).parent) for x in subject_data]
 
 rule all:
     input:
         expand("analysis/calculated_mae/ADDC/mae_patient0{digits}.csv", 
                digits = DIGITS),
+        expand("analysis/calculated_mae/subject/mae_{folder}.csv", 
+               folder = FOLDER),
         "analysis/plots/mrxcat_simulation/features_curves/top12_features.png",
         "analysis/plots/mrxcat_simulation/total_mae_vs_snr_mae.png",
         "analysis/plots/mrxcat_simulation/total_mae_vs_snr_mae_1.png",
         "analysis/plots/mrxcat_simulation/rank_barcode.png",
+
+

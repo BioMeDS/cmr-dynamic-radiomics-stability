@@ -1,13 +1,3 @@
-DIGITS = range(61, 81)
-SEEDS = ('042', '069', '151', '401', '404')
-NOISE = ("0.010", "0.020", "0.030", "0.040")
-from glob import glob
-
-
-wildcard_constraints:
-    seeds="^(?!.*0.000)",
-    noise="^(?!0)"
-
 def aggregate_input_Acdc(wildcards):
     dir = checkpoints.SplitSlicesAcdc.get(**wildcards).output[0]
     return glob(f"{dir}/*/*")
@@ -70,7 +60,7 @@ rule FeatureExtractionNoiseAcdc:
     input:
         aggregate_input_noise_Acdc
     output:
-        "analysis/features/ACDC_noise/patient0{digits}_{noise}_{seed}.csv"
+        "analysis/features/ACDC_noise/patient0{digits}_{noise}_{seed,\\d{3}}.csv"
     conda:
         "../feature_extraction.yaml"
     script:
@@ -87,7 +77,7 @@ rule AcdcFeatureNormalization:
         "../tidyverse.yaml"
     params:
         "patient0{digits}_0.000_0.csv",
-        "patient0{digits}"
+        "patient0{digits}_"
     script:
         "../../code/mrxcat_simulations/feature_normalization.R"
 

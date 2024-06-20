@@ -3,7 +3,7 @@ library(tidyverse)
 normalize_feature_df <- function(df_location, save_location, standard_df, reg) {
   files <- dir(df_location)
   names(files) <- files
-  if (reg != FALSE) {
+  if (reg != "") {
     files <- grep(reg, files, value = TRUE)
   }
   data <- files %>%

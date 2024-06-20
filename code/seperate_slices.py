@@ -10,15 +10,18 @@ def determine_middle_slice(input_path):
     return slice
 
 def get_specific_slice(image_path, mask_path, save_loc, slice_dict=False):
+    slice = False
     image_path = Path(image_path)
     mask_path = Path(mask_path)
-    if slice_dict == False:
+    if type(slice_dict) != dict:
         slice = determine_middle_slice(image_path)
     else:
         for key, value in slice_dict.items():
-            if re.search(key, image_path):
+            if re.search(rf"{key}[/_]", str(image_path)):
                 slice = value
                 break
+    if type(slice) != int:
+        assert("No slice in dict")
     image_nim = nib.load(image_path)
     mask_nim = nib.load(mask_path)
     image_data = image_nim.get_fdata()
@@ -39,4 +42,4 @@ def get_specific_slice(image_path, mask_path, save_loc, slice_dict=False):
         mask_data_mod = nib.Nifti1Image(mask_data_mod, np.eye(4))
         nib.save(mask_data_mod, f"{save_loc}/{image_path.parent.name}/{t}/segmentation.nii.gz")
 
-get_specific_slice(snakemake.input[0], snakemake.input[1], Path(snakemake.output[0]).parent, int(snakemake.params[0]))
+get_specific_slice(snakemake.input[0], snakemake.input[1], Path(snakemake.output[0]).parent, snakemake.params[0])
