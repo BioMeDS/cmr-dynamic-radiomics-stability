@@ -5,7 +5,7 @@
 
 ## General workflow
 
-![workflow](docs/workflow/DAG.pdf)
+![workflow](docs/workflow/dag.png)
 
 ## Data sets
 
