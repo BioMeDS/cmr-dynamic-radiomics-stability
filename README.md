@@ -5,7 +5,7 @@
 
 ## General workflow
 
-![workflow](docs/workflow/Workflow-2023-11-14-1521.png)
+![workflow](docs/workflow/DAG.pdf)
 
 ## Data sets
 
