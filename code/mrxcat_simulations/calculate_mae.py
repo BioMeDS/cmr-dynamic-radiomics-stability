@@ -4,6 +4,19 @@ import pandas as pd
 
 
 def calculate_mae(input_path, output_path):
+    """
+    Calculate the Mean Absolute Error (MAE) between subsets of dataframes.
+
+    Parameters:
+    input_path (str): The path to the input CSV file.
+    output_path (str): The path to save the output CSV file.
+
+    Raises:
+    ValueError: If the subsets have different numbers of columns.
+
+    Returns:
+    None
+    """
     df = pd.read_csv(input_path)
     files = list(df.file.unique())
     mae_values = []

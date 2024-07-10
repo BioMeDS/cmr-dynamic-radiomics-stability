@@ -8,6 +8,16 @@ from autorad.feature_extraction.extractor import FeatureExtractor
 import logging
 
 def feature_extraction(input_folder, output_file):
+    """
+    Extracts features from images in the input folder and saves the results to the output file.
+
+    Args:
+        input_folder (str): Path to the folder containing the input images.
+        output_file (str): Path to the output file where the extracted features will be saved.
+
+    Returns:
+        None
+    """
     paths_df = get_paths_with_separate_folder_per_case(f"{input_folder}", relative=True)
     image_dataset = ImageDataset(
        paths_df,

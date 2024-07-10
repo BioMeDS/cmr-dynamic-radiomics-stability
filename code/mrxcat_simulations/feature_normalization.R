@@ -1,5 +1,19 @@
 library(tidyverse)
 
+#' Normalize feature dataframe
+#'
+#' This function normalizes a feature dataframe by subtracting the mean and dividing by the standard deviation.
+#'
+#' @param df_location The location of the feature dataframes.
+#' @param save_location The location to save the normalized dataframe.
+#' @param standard_df The name of the standard dataframe to use for normalization.
+#' @param reg Regular expression to filter the files in the df_location directory.
+#'
+#' @return None
+#'
+#' @examples
+#' normalize_feature_df("/path/to/feature_data", "/path/to/save_location", "standard_df", "")
+#'
 normalize_feature_df <- function(df_location, save_location, standard_df, reg) {
   files <- dir(df_location)
   names(files) <- files

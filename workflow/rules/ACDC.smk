@@ -37,11 +37,11 @@ rule GenerateNoiseImagesAcdc:
     input:
         "data/ACDC_dataset/data/patient0{digits}/patient0{digits}_4d.nii.gz"
     output:
-        "data/ACDC_dataset/data_noise/patient0{digits}_{noise}_{seed}/patient0{digits}_4d.nii.gz"
+        "data/ACDC_dataset/data_noise/patient0{digits}_{noise}_{seed,\\d{3}}/patient0{digits}_4d.nii.gz"
     conda:
         "../noise.yaml"
     params:
-        "{seed}",
+        "{seed,\\d{3}}",
         "{noise}"
     script:
         "../../code/add_artifical_noise.py"
@@ -85,8 +85,30 @@ rule AcdcCalculateMae:
     input:
         "analysis/features_normalized/ACDC/patient0{digits}.csv"
     output:
-        "analysis/calculated_mae/ADDC/mae_patient0{digits}.csv"
+        "analysis/calculated_mae/ACDC/mae_patient0{digits}.csv",
     conda:
         "../calculate_mae.yaml"
     script:
         "../../code/mrxcat_simulations/calculate_mae.py"
+
+rule AcdcGeneratePlots:
+    input:
+        "analysis/features_normalized/ACDC/patient0{digits}.csv"
+    output:
+        "analysis/plots/ACDC/features_curves/patient0{digits}/top12_features.png"
+    conda:
+        "../tidyverse.yaml"
+    script:
+        "../../code/feature_plots.R"
+
+rule AcdcGenerateMaePlots:
+    input:
+        expand("analysis/calculated_mae/ACDC/mae_patient0{digits}.csv", digits = DIGITS)
+    output:
+        "analysis/plots/ACDC/total_mae_vs_snr_mae.png",
+        "analysis/plots/ACDC/total_mae_vs_snr_mae_1.png",
+        "analysis/plots/ACDC/rank_barcode.png",
+    conda:
+        "../tidyverse.yaml"
+    script:
+        "../../code/mae_plots.R"

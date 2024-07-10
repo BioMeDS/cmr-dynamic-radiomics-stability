@@ -4,6 +4,7 @@ NOISE = ("0.010", "0.020", "0.030", "0.040")
 from glob import glob
 import os
 from pathlib import Path
+import re
 
 include: "rules/ACDC.smk"
 include: "rules/simulation.smk"
@@ -14,19 +15,28 @@ def remove_suffix(filename:Path):
         filename = filename.with_suffix('')
     return filename
 
+
 subject_data = glob("data/subject_data/*/*[!mask].nii.gz")
 
 FOLDER = [os.path.basename(Path(x).parent) for x in subject_data]
 
+wildcard_constraints:
+    seed= '|'.join([re.escape(x) for x in SEEDS]),
+    folder= '|'.join([re.escape(x) for x in FOLDER]),
+    noise= '|'.join([re.escape(x) for x in NOISE])
+
 rule all:
     input:
-        expand("analysis/calculated_mae/ADDC/mae_patient0{digits}.csv", 
-               digits = DIGITS),
-        expand("analysis/calculated_mae/subject/mae_{folder}.csv", 
-               folder = FOLDER),
         "analysis/plots/mrxcat_simulation/features_curves/top12_features.png",
         "analysis/plots/mrxcat_simulation/total_mae_vs_snr_mae.png",
         "analysis/plots/mrxcat_simulation/total_mae_vs_snr_mae_1.png",
         "analysis/plots/mrxcat_simulation/rank_barcode.png",
-
+        expand("analysis/plots/subject/features_curves/{folder}/top12_features.png", folder = FOLDER),
+        "analysis/plots/subject/total_mae_vs_snr_mae.png",
+        "analysis/plots/subject/total_mae_vs_snr_mae_1.png",
+        "analysis/plots/subject/rank_barcode.png",
+        expand("analysis/plots/ACDC/features_curves/patient0{digits}/top12_features.png", digits = DIGITS),
+        "analysis/plots/ACDC/total_mae_vs_snr_mae.png",
+        "analysis/plots/ACDC/total_mae_vs_snr_mae_1.png",
+        "analysis/plots/ACDC/rank_barcode.png",
 

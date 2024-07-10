@@ -5,11 +5,36 @@ import os
 from pathlib import Path
 
 def determine_middle_slice(input_path):
+    """
+    Determines the middle slice of a 3D image volume.
+
+    Parameters:
+    input_path (str): The path to the input image volume.
+
+    Returns:
+    int: The index of the middle slice.
+
+    """
     _, _, slice, _ = nib.load(input_path).get_fdata().shape
     slice = int(np.round(slice/2))
     return slice
 
 def get_specific_slice(image_path, mask_path, save_loc, slice_dict=False):
+    """
+    Extracts a specific slice from a 4D image volume and saves it as a 3D NIfTI file.
+
+    Args:
+        image_path (str): The path to the 4D image volume.
+        mask_path (str): The path to the 4D mask volume.
+        save_loc (str): The directory where the extracted slices will be saved.
+        slice_dict (dict, optional): A dictionary mapping keywords to specific slice indices.
+            If provided, the function will search for a keyword in the image path and use the corresponding slice index.
+            If not provided, the function will determine the middle slice of the image volume.
+
+    Raises:
+        AssertionError: If the slice is not an integer.
+
+    """
     slice = False
     image_path = Path(image_path)
     mask_path = Path(mask_path)

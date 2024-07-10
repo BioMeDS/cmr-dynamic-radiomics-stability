@@ -4,6 +4,18 @@ import torch
 import numpy as np
 
 def generate_noise(image_path, seed, noise, output_path):
+    """
+    Generate noisy image from the input image.
+
+    Args:
+        image_path (str): Path to the input image file.
+        seed (int): Seed for random number generation.
+        noise (str): Noise level to be applied to the image. Must be convertible to float.
+        output_path (str): Path to save the generated noisy image.
+
+    Returns:
+        None
+    """
     torch.manual_seed(seed)
     image_data = nib.load(image_path).get_fdata()
     file_max = image_data.max()

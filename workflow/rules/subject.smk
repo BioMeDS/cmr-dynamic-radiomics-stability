@@ -13,6 +13,10 @@ valid_slices_sub = {"Proband X1": [8],
                     "Proband X14": [11],
                     "Proband X15": [7]}
 
+subject_data = glob("data/subject_data/*/*[!mask].nii.gz")
+
+FOLDER = [os.path.basename(Path(x).parent) for x in subject_data]
+
 def aggregate_input_Sub(wildcards):
     dir = checkpoints.SplitSlicesSub.get(**wildcards).output[0]
     return glob(f"{dir}/*/*")
@@ -105,3 +109,25 @@ rule SubCalculateMae:
         "../calculate_mae.yaml"
     script:
         "../../code/mrxcat_simulations/calculate_mae.py"
+
+rule SubGeneratePlots:
+    input:
+        "analysis/features_normalized/subject/{folder}.csv",
+    output:
+        "analysis/plots/subject/features_curves/{folder}/top12_features.png"
+    conda:
+        "../tidyverse.yaml"
+    script:
+        "../../code/feature_plots.R"
+
+rule SubGenerateMaePlots:
+    input:
+        expand("analysis/calculated_mae/subject/mae_{folder}.csv", folder = FOLDER),
+    output:
+        "analysis/plots/subject/total_mae_vs_snr_mae.png",
+        "analysis/plots/subject/total_mae_vs_snr_mae_1.png",
+        "analysis/plots/subject/rank_barcode.png",
+    conda:
+        "../tidyverse.yaml"
+    script:
+        "../../code/mae_plots.R"

@@ -3,16 +3,19 @@ REPLICATE = range(1, 6)
 NUMBER = range(1, 25)
 FILE = ("image", "segmentation")
 
+out = expand("data/mrxcat_simulations/snr{snr}_{replicate}/csvs/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.csv", 
+               snr=SNR, replicate=REPLICATE, number=NUMBER)
+
 rule SimSaveAsCsv:
     input:
         "data/mrxcat_simulations"
     output:
-        "data/mrxcat_simulations/snr{snr}_{replicate}/csvs/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.csv",
+        out
     conda:
         "../octave_env.yaml"
     shell:
         "cd code/mrxcat_simulations;"
-        "octave SaveAsCsv.m --no-gui"
+        "octave SaveAsCsv.m --no-gui;"
 
 rule SimConvertCsvToNifti:
     input:
