@@ -105,6 +105,7 @@ rule AcdcGenerateMaePlots:
     input:
         expand("analysis/calculated_mae/ACDC/mae_patient0{digits}.csv", digits = DIGITS)
     output:
+        "analysis/tables/rank_table_ACDC.csv",
         "analysis/plots/ACDC/total_mae_vs_snr_mae.png",
         "analysis/plots/ACDC/total_mae_vs_snr_mae_1.png",
         "analysis/plots/ACDC/rank_barcode.png",

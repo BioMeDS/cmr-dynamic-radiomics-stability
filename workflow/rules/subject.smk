@@ -124,6 +124,7 @@ rule SubGenerateMaePlots:
     input:
         expand("analysis/calculated_mae/subject/mae_{folder}.csv", folder = FOLDER),
     output:
+        "analysis/tables/rank_table_subject.csv",
         "analysis/plots/subject/total_mae_vs_snr_mae.png",
         "analysis/plots/subject/total_mae_vs_snr_mae_1.png",
         "analysis/plots/subject/rank_barcode.png",

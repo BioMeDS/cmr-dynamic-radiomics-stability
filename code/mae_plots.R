@@ -209,6 +209,6 @@ data_summary_plots <- create_table_for_noise_plots(snakemake@input[[1]] %>%
 save_rank_table(data_summary_plots, snakemake@output[[1]])
 
 create_plots(data_summary_plots,
-             snakemake@output[[1]],
              snakemake@output[[2]],
-             snakemake@output[[3]])
+             snakemake@output[[3]],
+             snakemake@output[[4]])

@@ -123,6 +123,7 @@ rule GeneratePlots:
         "analysis/calculated_mae/mrxcat_simulation/mae.csv"
     output:
         "analysis/plots/mrxcat_simulation/features_curves/top12_features.png",
+        "analysis/tables/rank_table_simulation.csv",
         "analysis/plots/mrxcat_simulation/total_mae_vs_snr_mae.png",
         "analysis/plots/mrxcat_simulation/total_mae_vs_snr_mae_1.png",
         "analysis/plots/mrxcat_simulation/rank_barcode.png",

@@ -309,6 +309,6 @@ data_summary_plots <- create_table_for_snr_plots(snakemake@input[[2]]) # input m
 save_rank_table(data_summary_plots, snakemake@output[[2]])
 
 create_plots(data_summary_plots,
-             snakemake@output[[2]],
              snakemake@output[[3]],
-             snakemake@output[[4]])
+             snakemake@output[[4]],
+             snakemake@output[[5]])
