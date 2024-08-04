@@ -15,7 +15,4 @@ save_single_rank_table <- function(table, output_path) {
     write_csv(output_path)
 }
 
-
 save_single_rank_table(snakemake@input[[1]], snakemake@output[[1]])
-
-# save_single_rank_table("analysis/calculated_mae/subject/mae_Proband X11.csv", "analysis/tables/subject/mae_Proband X11.csv")
