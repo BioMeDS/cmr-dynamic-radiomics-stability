@@ -137,7 +137,8 @@ save_rank_table <- function(data, output_path) {
   data %>%
     filter(feature_class != "shape") %>%
     mutate(rank = dense_rank((mae.y))) %>%
-    group_by(feature_class, mae.y, rank, Feature_name) %>%
+    group_by(filter, feature_class, mae.y, rank, Feature_name) %>%
+    distinct(Feature_name, mae.y, rank) %>%
     write_csv(output_path)
 }
 

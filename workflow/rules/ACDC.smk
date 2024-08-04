@@ -113,3 +113,13 @@ rule AcdcGenerateMaePlots:
         "../tidyverse.yaml"
     script:
         "../../code/mae_plots.R"
+
+rule AcdcTableRank:
+    input:
+        "analysis/calculated_mae/ACDC/mae_patient0{digits}.csv"
+    output:
+        "analysis/tables/ACDC/ranks_patient0{digits}.csv"
+    conda:
+        "../tidyverse.yaml"
+    script:
+        "../../code/single_ranks.R"

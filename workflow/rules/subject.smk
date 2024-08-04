@@ -132,3 +132,13 @@ rule SubGenerateMaePlots:
         "../tidyverse.yaml"
     script:
         "../../code/mae_plots.R"
+
+rule SubTableRank:
+    input:
+        "analysis/calculated_mae/subject/mae_{folder}.csv"
+    output:
+        "analysis/tables/subject/mae_{folder}.csv"
+    conda:
+        "../tidyverse.yaml"
+    script:
+        "../../code/single_ranks.R"

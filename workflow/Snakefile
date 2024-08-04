@@ -39,4 +39,7 @@ rule all:
         "analysis/plots/ACDC/total_mae_vs_snr_mae.png",
         "analysis/plots/ACDC/total_mae_vs_snr_mae_1.png",
         "analysis/plots/ACDC/rank_barcode.png",
+        expand("analysis/tables/subject/mae_{folder}.csv", folder = FOLDER),
+        expand("analysis/tables/ACDC/ranks_patient0{digits}.csv", digits = DIGITS)
+
 
