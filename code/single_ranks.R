@@ -9,6 +9,7 @@ save_single_rank_table <- function(table, output_path) {
     filter(feature_class != "shape") %>%
     group_by(Feature_name, filter, feature_class, feature) %>%
     summarise(mae = mean(mae)) %>%
+    ungroup() %>%
     mutate(rank = dense_rank((mae))) %>%
     group_by(filter, feature_class, feature, mae, rank, Feature_name) %>%
     distinct(Feature_name, mae, rank) %>%
