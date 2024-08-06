@@ -137,7 +137,7 @@ rule SubTableRank:
     input:
         "analysis/calculated_mae/subject/mae_{folder}.csv"
     output:
-        "analysis/tables/subject/mae_{folder}.csv"
+        "analysis/tables/subject/ranks_{folder}.csv"
     conda:
         "../tidyverse.yaml"
     script:
