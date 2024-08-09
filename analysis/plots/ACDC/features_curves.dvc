@@ -1,0 +1,6 @@
+outs:
+- md5: 80e64810b4ba9ea5582dc4d3a5e400ff.dir
+  size: 18230902700
+  nfiles: 16680
+  hash: md5
+  path: features_curves
