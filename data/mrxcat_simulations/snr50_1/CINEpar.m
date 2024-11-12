@@ -32,11 +32,11 @@ T2Bone      = 20.0;                         % T2 bone               [ms]
 
 TR          = 3.0;                          % Repetition time       [ms]
 TE          = 1.5;                          % Echo time             [ms]
-Flip        = 60.0;                         % Flip                  [deg]
+Flip        = 90;                         % Flip                  [deg]
 Frames      = 24;                           % Number of heart phases (default: 24; 0=use # XCAT frames (.bin files))
 Segments    = 1;                            % Number of segments
 
-BoundingBox = [0.2,0.6;0.3,0.7;0.0,1.0];    % BoundingBox in rel. units
+BoundingBox = [0.125,0.625;0.25,0.75;0.0,1.0];    % BoundingBox in rel. units
 RotationXYZ = [115.0;35.0;240.0];           % Rotations about x,y,z [deg]  (default: 115/35/240)
                                             % x=(RL) y=(AP) z=(FH)
 LowPassFilt = 1;                            % low-pass filter images
