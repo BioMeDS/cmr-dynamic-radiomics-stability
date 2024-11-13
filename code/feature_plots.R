@@ -2,28 +2,6 @@ library(tidyverse)
 library(ggridges)
 library(munsell)
 
-# This section defines color palettes used for plotting in the script.
-# Each palette is stored as a vector of hexadecimal color codes.
-# The class_colors vector stores additional color codes used for class-specific coloring.
-
-
-s1_palette <- c("#818589", "#CC29C7", "#993D96", "#FF01F6", "#332933")
-s2_palette <- c("#818589", "#B86725", "#855935", "#EB6800", "#332D29")
-s3_palette <- c("#818589", "#26BDBD", "#378A8A", "#00F0EE", "#293333")
-s4_palette <- c("#818589", "#2BBD26", "#3A8A37", "#09F000", "#293329")
-s5_palette <- c("#818589", "#B8B025", "#858135", "#EBE100", "#333229")
-s6_palette <- c("#818589", "#B82A25", "#853835", "#EB0800", "#332929")
-s7_palette <- c("#818589", "#f2f0f7", "#cbc9e2", "#9e9ac8", "#6a51a3")
-class_colors <- c("#FF01F6","#EB6800","#00F0EE", "#09F000", "#EBE100", "#EB0800")
-
-palettes <- list(s1_palette,
-                 s2_palette,
-                 s3_palette,
-                 s4_palette,
-                 s5_palette,
-                 s6_palette,
-                 s7_palette)
-
 #' Function to prepare data for analysis
 #'
 #' This function takes a path as input and loads all CSV files in the folder specified by the path.
@@ -87,13 +65,12 @@ plot_top_12_features <- function(path, filename) {
 #'
 #' @param path The path to the folder containing the CSV files
 #' @param output_path The path to save the output plots.
-#' @param palettes A list of color palettes for different feature groups.
 #'
 #' @return None
 #'
 #' @examples
-#' plot_noise_curves("data", "output/plots", palettes)
-plot_noise_curves <- function(path, output_path, palettes) {
+#' plot_noise_curves("data", "output/plots")
+plot_noise_curves <- function(path, output_path) {
   prepare_data(path) %>%
     select(ID, noise, file,
            `original_shape_Elongation`:`wavelet-LLL_ngtdm_Strength`) %>%
@@ -102,27 +79,10 @@ plot_noise_curves <- function(path, output_path, palettes) {
                  `original_shape_Elongation`:`wavelet-LLL_ngtdm_Strength`) %>%
     group_split(feature) %>%
     map(~{
-          if (str_detect(first(.x$feature), pattern = "firstorder")) {
-            color_palette <- palettes[[1]]
-          } else if (str_detect(first(.x$feature), pattern = "glcm")) {
-            color_palette <- palettes[[2]]
-          } else if (str_detect(first(.x$feature), pattern = "gldm")) {
-            color_palette <- palettes[[3]]
-          } else if (str_detect(first(.x$feature), pattern = "glrlm")) {
-            color_palette <- palettes[[4]]
-          } else if (str_detect(first(.x$feature), pattern = "glszm")) {
-            color_palette <- palettes[[5]]
-          } else if (str_detect(first(.x$feature), pattern = "ngtdm")) {
-            color_palette <- palettes[[6]]
-          } else if (str_detect(first(.x$feature), pattern = "shape")) {
-            color_palette <- palettes[[7]]
-          } else {
-            color_palette <- palettes[[7]]
-          }
           plot <- ggplot(.x) + aes(x = ID, y = value, color = noise) +
             geom_line(aes(group = file)) +
             labs(y = first(.x$feature)) +
-            scale_color_manual(values = color_palette) +
+            scale_color_brewer(palette="Set1") +
             theme_classic()
           ggsave(paste0(first(.x$feature), ".png"),
                  plot,
@@ -139,5 +99,4 @@ plot_top_12_features(snakemake@input[[1]],
 plot_noise_curves(snakemake@input[[1]],
                   snakemake@output[[1]] %>%
                     file.path %>%
-                    dirname,
-                  palettes)
+                    dirname)
