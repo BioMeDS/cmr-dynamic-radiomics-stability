@@ -2,29 +2,6 @@ library(tidyverse)
 library(ggridges)
 library(munsell)
 
-# This section defines color palettes used for plotting in the script.
-# Each palette is stored as a vector of hexadecimal color codes.
-# The class_colors vector stores additional color codes used for class-specific coloring.
-
-
-s1_palette <- c("#818589", "#CC29C7", "#993D96", "#FF01F6", "#332933")
-s2_palette <- c("#818589", "#B86725", "#855935", "#EB6800", "#332D29")
-s3_palette <- c("#818589", "#26BDBD", "#378A8A", "#00F0EE", "#293333")
-s4_palette <- c("#818589", "#2BBD26", "#3A8A37", "#09F000", "#293329")
-s5_palette <- c("#818589", "#B8B025", "#858135", "#EBE100", "#333229")
-s6_palette <- c("#818589", "#B82A25", "#853835", "#EB0800", "#332929")
-s7_palette <- c("#818589", "#f2f0f7", "#cbc9e2", "#9e9ac8", "#6a51a3")
-class_colors <- c("#FF01F6","#EB6800","#00F0EE", "#09F000", "#EBE100", "#EB0800")
-
-palettes <- list(s1_palette,
-                 s2_palette,
-                 s3_palette,
-                 s4_palette,
-                 s5_palette,
-                 s6_palette,
-                 s7_palette)
-
-
 #' Function to load CSV files in a folder and combine them into a single data frame
 #'
 #' @param path The path to the folder containing the CSV files

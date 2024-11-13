@@ -5,12 +5,14 @@ FILE = ("image", "segmentation")
 
 out = expand("data/mrxcat_simulations/snr{snr}_{replicate}/csvs/cine_1x1x1mm_512x512x1x24x4_snr{snr}_fa90_bh{number}.csv", 
                snr=SNR, replicate=REPLICATE, number=NUMBER)
+out_50 = expand("data/mrxcat_simulations/snr50_1/csvs/cine_1x1x1mm_512x512x1x24x4_snr50_fa90_bh{number}.csv", 
+               number=NUMBER)
 
 rule SimSaveAsCsv:
     input:
         "data/mrxcat_simulations"
     output:
-        out
+        out, out_50
     conda:
         "../octave_env.yaml"
     shell:
@@ -96,13 +98,14 @@ rule FeatureExtractionSimulation:
 rule SimulationFeatureNormalization:
     input:
         expand("analysis/features/mrxcat_simulation/snr{snr}_{replicate}.csv", 
-               snr=SNR, replicate=REPLICATE)
+               snr=SNR, replicate=REPLICATE),
+        "analysis/features/mrxcat_simulation/snr50_1.csv"
     output:
         "analysis/features_normalized/mrxcat_simulation/features.csv"
     conda:
         "../tidyverse.yaml"
     params:
-        "snr30_1.csv",
+        "snr50_1.csv",
         ""
     script:
         "../../code/mrxcat_simulations/feature_normalization.R"

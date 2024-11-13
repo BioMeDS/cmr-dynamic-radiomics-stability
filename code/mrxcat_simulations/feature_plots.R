@@ -2,28 +2,6 @@ library(tidyverse)
 library(ggridges)
 library(munsell)
 
-# This section defines color palettes used for plotting in the script.
-# Each palette is stored as a vector of hexadecimal color codes.
-# The class_colors vector stores additional color codes used for class-specific coloring.
-
-s1_palette <- c("#CC29C7", "#993D96", "#FF01F6", "#332933")
-s2_palette <- c("#B86725", "#855935", "#EB6800", "#332D29")
-s3_palette <- c("#26BDBD", "#378A8A", "#00F0EE", "#293333")
-s4_palette <- c("#2BBD26", "#3A8A37", "#09F000", "#293329")
-s5_palette <- c("#B8B025", "#858135", "#EBE100", "#333229")
-s6_palette <- c("#B82A25", "#853835", "#EB0800", "#332929")
-s7_palette <- c("#f2f0f7", "#cbc9e2", "#9e9ac8", "#6a51a3")
-
-class_colors <- c("#FF01F6","#EB6800","#00F0EE", "#09F000", "#EBE100", "#EB0800")
-
-palettes <- list(s1_palette,
-         s2_palette,
-         s3_palette,
-         s4_palette,
-         s5_palette,
-         s6_palette,
-         s7_palette)
-
 #' Function to prepare data for analysis
 #'
 #' This function takes a path as input and loads all CSV files in the folder specified by the path.
@@ -84,7 +62,7 @@ plot_top_12_features <- function(path, filename) {
          width = 20)
 }
 
-plot_snr_curves <- function(path, output_path, palettes) {
+plot_snr_curves <- function(path, output_path) {
   prepare_data(path) %>%
     select(ID, snr, file,
            `original_shape_Elongation`:`wavelet-LLL_ngtdm_Strength`) %>%
@@ -93,27 +71,10 @@ plot_snr_curves <- function(path, output_path, palettes) {
                  `original_shape_Elongation`:`wavelet-LLL_ngtdm_Strength`) %>%
     group_split(feature) %>%
     map(~{
-          if (str_detect(first(.x$feature), pattern = "firstorder")) {
-            color_palette <- palettes[[1]]
-          } else if (str_detect(first(.x$feature), pattern = "glcm")) {
-            color_palette <- palettes[[2]]
-          } else if (str_detect(first(.x$feature), pattern = "gldm")) {
-            color_palette <- palettes[[3]]
-          } else if (str_detect(first(.x$feature), pattern = "glrlm")) {
-            color_palette <- palettes[[4]]
-          } else if (str_detect(first(.x$feature), pattern = "glszm")) {
-            color_palette <- palettes[[5]]
-          } else if (str_detect(first(.x$feature), pattern = "ngtdm")) {
-            color_palette <- palettes[[6]]
-          } else if (str_detect(first(.x$feature), pattern = "shape")) {
-            color_palette <- palettes[[7]]
-          } else {
-            color_palette <- palettes[[7]]
-          }
           plot <- ggplot(.x) + aes(x = ID, y = value, color = snr) +
             geom_line(aes(group = file)) +
             labs(y = first(.x$feature)) +
-            scale_color_manual(values = color_palette) +
+            scale_color_brewer(palette = "Set1") +
             theme_classic()
           ggsave(paste0(first(.x$feature), ".png"),
                  plot,
@@ -284,7 +245,7 @@ create_plots <- function(data, output1, output2, output3) {
     ylab("Feature Class") +
     labs(fill = "Feature Class") +
     theme(text = element_text(size = 14)) +
-    scale_fill_manual(values = class_colors)
+    scale_fill_brewer(palette = "Set2")
   ggsave(filename = output3 %>%
            file.path %>%
            basename,
@@ -302,8 +263,7 @@ plot_top_12_features(snakemake@input[[1]],   # input: features.csv (normalized)
 plot_snr_curves(snakemake@input[[1]],
                 snakemake@output[[1]] %>%
                   file.path %>%
-                  dirname,
-                palettes)
+                  dirname)
 
 data_summary_plots <- create_table_for_snr_plots(snakemake@input[[2]]) # input mae.csv
 

@@ -1,5 +1,7 @@
 dependencies:
 - numpy
+- backports
+- rich
 - pip
 - python=3.10
 - pip:
