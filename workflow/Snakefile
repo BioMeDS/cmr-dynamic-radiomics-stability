@@ -9,6 +9,7 @@ import re
 include: "rules/ACDC.smk"
 include: "rules/simulation.smk"
 include: "rules/subject.smk"
+include: "rules/figures.smk"
 
 def remove_suffix(filename:Path):
     while filename.suffix:
@@ -40,6 +41,7 @@ rule all:
         "analysis/plots/ACDC/total_mae_vs_snr_mae_1.png",
         "analysis/plots/ACDC/rank_barcode.png",
         expand("analysis/tables/subject/ranks_{folder}.csv", folder = FOLDER),
-        expand("analysis/tables/ACDC/ranks_patient0{digits}.csv", digits = DIGITS)
+        expand("analysis/tables/ACDC/ranks_patient0{digits}.csv", digits = DIGITS),
+        "figures/fig2.svg"
 
 
