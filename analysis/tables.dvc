@@ -1,5 +1,74 @@
 outs:
-- md5: dd59056a2e1b239a03074bb4cdbae6f7.dir
-  nfiles: 37
-  hash: md5
+- hash: md5
   path: tables
+  files:
+  - relpath: ACDC/ranks_patient061.csv
+    md5: 3f4a8843a1c6de964f5c567866472ae0
+  - relpath: ACDC/ranks_patient062.csv
+    md5: fa9675f075c585e06449c81220f84e55
+  - relpath: ACDC/ranks_patient063.csv
+    md5: 5638d5c0f2e1d2b1bd4ee9f73da2979c
+  - relpath: ACDC/ranks_patient064.csv
+    md5: 51474be8efa67ab01b714885062eb674
+  - relpath: ACDC/ranks_patient065.csv
+    md5: 9ac9de56bdb40720dead1f55e1c874c1
+  - relpath: ACDC/ranks_patient066.csv
+    md5: 3ee9ced0189535e955c6d47f13b43fe8
+  - relpath: ACDC/ranks_patient067.csv
+    md5: 6e5a8ea093c52018129232c0ac6e7231
+  - relpath: ACDC/ranks_patient068.csv
+    md5: dcf9163445eafc77a6f357d56d5d51ba
+  - relpath: ACDC/ranks_patient069.csv
+    md5: 80c1d452bb2221ecc68a69352a13b55f
+  - relpath: ACDC/ranks_patient070.csv
+    md5: 3d78b89cb051d1820a4922a3c14c0f03
+  - relpath: ACDC/ranks_patient071.csv
+    md5: c1235b2921dc369b6f1c94f7073f373b
+  - relpath: ACDC/ranks_patient072.csv
+    md5: 1361932431a07c92bdffbb5b377ebe11
+  - relpath: ACDC/ranks_patient073.csv
+    md5: c0317ac876fdf092e3805adc793c69ed
+  - relpath: ACDC/ranks_patient074.csv
+    md5: 8d67e79f1d970cef6c8428fe55c7886c
+  - relpath: ACDC/ranks_patient075.csv
+    md5: 584364a59dcfff4509994b7813ef83dc
+  - relpath: ACDC/ranks_patient076.csv
+    md5: b0be911bc464578de3c6a0d4c929ffc0
+  - relpath: ACDC/ranks_patient077.csv
+    md5: ec7fcd37430ca78b11de391f7e604d33
+  - relpath: ACDC/ranks_patient078.csv
+    md5: bcca477c69faead76a003133b8e681c9
+  - relpath: ACDC/ranks_patient079.csv
+    md5: d25ae4a45b80f5ffd295c4852996598c
+  - relpath: ACDC/ranks_patient080.csv
+    md5: a4f48fd1753ca1b69172e5d12ae49501
+  - relpath: mrxcat_simulation/ranks.csv
+    md5: 22885d51d23f990781c8652eb3903f34
+  - relpath: subject/ranks_Proband X1.csv
+    md5: 65612ef3b2c8131dc02a889929c1fa6d
+  - relpath: subject/ranks_Proband X10.csv
+    md5: 1e3885a8e6167751dc9c299791c5ae35
+  - relpath: subject/ranks_Proband X11.csv
+    md5: 6b55f4eacbdf6bc8e85ab7b14675b4df
+  - relpath: subject/ranks_Proband X12.csv
+    md5: 4d1c34fa102eef38f09c37891d2b01cb
+  - relpath: subject/ranks_Proband X13.csv
+    md5: 0c0e201498f227502e44b49d63fcb669
+  - relpath: subject/ranks_Proband X14.csv
+    md5: fc40dafa2e6eb846a57170645672d2c9
+  - relpath: subject/ranks_Proband X15.csv
+    md5: affb867741248c4cbc122eb423e2d4ce
+  - relpath: subject/ranks_Proband X2.csv
+    md5: a64475d5fdc6cfd95386b2652dba6e91
+  - relpath: subject/ranks_Proband X4.csv
+    md5: 96a314c71098361bc92d36400f926a2d
+  - relpath: subject/ranks_Proband X5.csv
+    md5: e8b78d2e9f58f5db041a9c6e6c607be6
+  - relpath: subject/ranks_Proband X6.csv
+    md5: f0c51b34b677a72831d9b099e1847c17
+  - relpath: subject/ranks_Proband X7.csv
+    md5: 779a1b36ee82b4c99b541af8bbeb2c72
+  - relpath: subject/ranks_Proband X8.csv
+    md5: cd4362e4f5cc6c933bd6b11cfe21c88d
+  - relpath: subject/ranks_Proband X9.csv
+    md5: f3a1b51f9d4207a0b4a2b76a8112a35f
