@@ -119,11 +119,21 @@ rule SimulationCalculateMae:
         "../calculate_mae.yaml"
     script:
         "../../code/mrxcat_simulations/calculate_mae.py"
+ 
+rule SimTableRank:
+    input:
+        "analysis/calculated_mae/mrxcat_simulation/mae.csv"
+    output:
+        "analysis/tables/mrxcat_simulation/ranks.csv"
+    conda:
+        "../tidyverse.yaml"
+    script:
+        "../../code/single_ranks.R"
 
 rule GeneratePlots:
     input:
         "analysis/features_normalized/mrxcat_simulation/features.csv", 
-        "analysis/calculated_mae/mrxcat_simulation/mae.csv"
+        "analysis/tables/mrxcat_simulation/ranks.csv"
     output:
         "analysis/plots/mrxcat_simulation/features_curves/top12_features.png",
         "analysis/tables/rank_table_simulation.csv",
@@ -134,4 +144,3 @@ rule GeneratePlots:
         "../tidyverse.yaml"
     script:
         "../../code/mrxcat_simulations/feature_plots.R"
-    
