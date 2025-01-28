@@ -8,3 +8,4 @@ dependencies:
     - r-ggridges
     - r-munsell
     - r-svglite
+    - r-corrr
