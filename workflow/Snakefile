@@ -34,8 +34,9 @@ rule all:
         "analysis/plots/ACDC/total_mae_vs_snr_mae.png",
         "analysis/plots/ACDC/total_mae_vs_snr_mae_1.png",
         "analysis/plots/ACDC/rank_barcode.png",
-        "figures/fig2.svg"
-        "figures/fig3.svg"
+        expand("figures/fig{num}.svg", num=[2, 3, 4, 5]),
+        expand("figures/supp_fig{num}.svg", num=[1, 2]),
+        "figures/fig3_supplement.pdf"
 
 rule combine_tables:
     input:
