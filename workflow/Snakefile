@@ -34,8 +34,21 @@ rule all:
         "analysis/plots/ACDC/total_mae_vs_snr_mae.png",
         "analysis/plots/ACDC/total_mae_vs_snr_mae_1.png",
         "analysis/plots/ACDC/rank_barcode.png",
-        expand("analysis/tables/subject/ranks_{folder}.csv", folder = FOLDER),
-        expand("analysis/tables/ACDC/ranks_patient0{digits}.csv", digits = DIGITS),
         "figures/fig2.svg"
+        "figures/fig3.svg"
 
-
+rule combine_tables:
+    input:
+        "analysis/features_normalized/mrxcat_simulation/features.csv",
+        "analysis/tables/mrxcat_simulation/ranks.csv",
+        expand("analysis/features_normalized/ACDC/patient0{digits}.csv", digits = DIGITS),
+        expand("analysis/tables/ACDC/ranks_patient0{digits}.csv", digits = DIGITS),
+        expand("analysis/features_normalized/subject/{folder}.csv", folder = FOLDER),
+        expand("analysis/tables/subject/ranks_{folder}.csv", folder = FOLDER)
+    output:
+        "analysis/combined/features.tsv",
+        "analysis/combined/ranks.tsv"
+    conda:
+        "tidyverse.yaml"
+    script:
+        "../code/combine_features.R"

@@ -8,3 +8,15 @@ rule GenerateFigure2:
         "../tidyverse.yaml"
     script:
         "../../code/figures/fig2.R"
+
+rule GenerateFigure3:
+    input:
+        "analysis/combined/features.tsv",
+        "analysis/combined/ranks.tsv"
+    output:
+        "figures/fig3.svg",
+        "figures/fig3_supplement.pdf"
+    conda:
+        "../tidyverse.yaml"
+    script:
+        "../../code/figures/fig3.R"
