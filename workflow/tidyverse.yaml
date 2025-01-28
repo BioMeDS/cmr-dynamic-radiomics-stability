@@ -9,3 +9,4 @@ dependencies:
     - r-munsell
     - r-svglite
     - r-corrr
+    - r-ggpubr
