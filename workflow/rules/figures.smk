@@ -30,3 +30,13 @@ rule GenerateFigure4:
         "../tidyverse.yaml"
     script:
         "../../code/figures/fig4.R"
+
+rule GenerateFigure5:
+    input:
+        "analysis/combined/ranks.tsv"
+    output:
+        "figures/fig5.svg",
+    conda:
+        "../tidyverse.yaml"
+    script:
+        "../../code/figures/fig5.R"
