@@ -18,7 +18,7 @@ make_comparison_plot <- function(feature_name, ylabel="{feature_name}"){
 }
 
 fig3 <- make_comparison_plot("wavelet-LLL_glcm_Idn", ylabel="normalized feature value ({feature_name})")
-ggsave("figures/fig3.svg")
+ggsave("figures/fig3.svg", plot=fig3, width=10, height=10)
 
 rank_order_by_median <- ranks_combined %>%
   filter(!is.na(rank)) %>%
