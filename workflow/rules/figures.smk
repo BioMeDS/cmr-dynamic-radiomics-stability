@@ -53,7 +53,7 @@ rule GenerateSuppFigure1:
 
 rule GenerateSuppFigure2:
     input:
-        "analysis/calculated_mae/summary.csv"
+        "figures/supp_tab1.tsv"
     output:
         "figures/supp_fig2.svg",
     conda:

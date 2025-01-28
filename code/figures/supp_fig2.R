@@ -1,7 +1,7 @@
 library(tidyverse)
 theme_set(theme_light())
 
-summarized <- read_csv("analysis/calculated_mae/summary.csv")
+summarized <- read_tsv("figures/supp_tab1.tsv")
 
 supp_fig2 <- summarized |>
   ggplot(aes(x=mean_mae, y=mean_within_mae)) +

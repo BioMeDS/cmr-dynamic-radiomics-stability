@@ -53,3 +53,15 @@ rule combine_tables:
         "tidyverse.yaml"
     script:
         "../code/combine_features.R"
+
+rule GenerateSuppTable1:
+    input:
+        "analysis/calculated_mae/mrxcat_simulation/mae.csv",
+        expand("analysis/calculated_mae/ACDC/mae_patient0{digits}.csv", digits = DIGITS),
+        expand("analysis/calculated_mae/subject/mae_{folder}.csv", folder = FOLDER)
+    output:
+        "figures/supp_tab1.tsv"
+    conda:
+        "tidyverse.yaml"
+    script:
+        "../code/supp_tab1.R"
