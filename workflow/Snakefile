@@ -11,12 +11,6 @@ include: "rules/simulation.smk"
 include: "rules/subject.smk"
 include: "rules/figures.smk"
 
-def remove_suffix(filename:Path):
-    while filename.suffix:
-        filename = filename.with_suffix('')
-    return filename
-
-
 subject_data = glob("data/subject_data/*/*[!mask].nii.gz")
 
 FOLDER = [os.path.basename(Path(x).parent) for x in subject_data]
