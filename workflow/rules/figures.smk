@@ -50,3 +50,13 @@ rule GenerateSuppFigure1:
         "../tidyverse.yaml"
     script:
         "../../code/figures/supp_fig1.R"
+
+rule GenerateSuppFigure2:
+    input:
+        "analysis/calculated_mae/summary.csv"
+    output:
+        "figures/supp_fig2.svg",
+    conda:
+        "../tidyverse.yaml"
+    script:
+        "../../code/figures/supp_fig2.R"
