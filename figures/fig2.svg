@@ -24,31 +24,12 @@
 <rect x='0.000000000000064' y='0.00' width='720.00' height='720.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 </g>
 <defs>
-  <clipPath id='cpNDQuMjN8NjU0LjMwfDEwLjk2fDY4Mi40Nw=='>
-    <rect x='44.23' y='10.96' width='610.07' height='671.51' />
-  </clipPath>
-</defs>
-<g clip-path='url(#cpNDQuMjN8NjU0LjMwfDEwLjk2fDY4Mi40Nw==)'>
-</g>
-<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw3MjAuMDA=)'>
-</g>
-<defs>
   <clipPath id='cpNS40OHw3MTQuNTJ8NS40OHwzNTEuNDI='>
     <rect x='5.48' y='5.48' width='709.04' height='345.94' />
   </clipPath>
 </defs>
 <g clip-path='url(#cpNS40OHw3MTQuNTJ8NS40OHwzNTEuNDI=)'>
 <rect x='5.48' y='5.48' width='709.04' height='345.94' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
-</g>
-<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw3MjAuMDA=)'>
-</g>
-<defs>
-  <clipPath id='cpNS40OHw3MTQuNTJ8MzUxLjQyfDcxNC41Mg=='>
-    <rect x='5.48' y='351.42' width='709.04' height='363.11' />
-  </clipPath>
-</defs>
-<g clip-path='url(#cpNS40OHw3MTQuNTJ8MzUxLjQyfDcxNC41Mg==)'>
-<rect x='5.48' y='351.42' width='709.04' height='363.11' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 </g>
 <g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw3MjAuMDA=)'>
 </g>
@@ -211,6 +192,16 @@
 <text x='545.13' y='330.58' text-anchor='middle' style='font-size: 8.80px;fill: #4D4D4D; font-family: "Arimo";' textLength='10.07px' lengthAdjust='spacingAndGlyphs'>20</text>
 <text x='349.26' y='343.29' text-anchor='middle' style='font-size: 11.00px; font-family: "Arimo";' textLength='22.66px' lengthAdjust='spacingAndGlyphs'>mae</text>
 <text transform='translate(18.81,165.16) rotate(-90)' text-anchor='middle' style='font-size: 11.00px; font-family: "Arimo";' textLength='29.50px' lengthAdjust='spacingAndGlyphs'>count</text>
+</g>
+<defs>
+  <clipPath id='cpNS40OHw3MTQuNTJ8MzUxLjQyfDcxNC41Mg=='>
+    <rect x='5.48' y='351.42' width='709.04' height='363.11' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNS40OHw3MTQuNTJ8MzUxLjQyfDcxNC41Mg==)'>
+<rect x='5.48' y='351.42' width='709.04' height='363.11' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+</g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8MC4wMHw3MjAuMDA=)'>
 </g>
 <defs>
   <clipPath id='cpNDQuMjN8MzM2LjQzfDM3NC4wNnw1MTYuOTQ='>
@@ -517,12 +508,16 @@
 <text x='670.74' y='486.25' style='font-size: 11.00px; font-family: "Arimo";' textLength='16.61px' lengthAdjust='spacingAndGlyphs'>snr</text>
 <rect x='670.74' y='493.06' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <line x1='672.46' y1='501.70' x2='686.29' y2='501.70' style='stroke-width: 1.07; stroke: #E41A1C; stroke-linecap: butt;' />
+<line x1='672.46' y1='501.70' x2='686.29' y2='501.70' style='stroke-width: 2.13; stroke: #E41A1C; stroke-linecap: butt;' />
 <rect x='670.74' y='510.34' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <line x1='672.46' y1='518.98' x2='686.29' y2='518.98' style='stroke-width: 1.07; stroke: #377EB8; stroke-linecap: butt;' />
+<line x1='672.46' y1='518.98' x2='686.29' y2='518.98' style='stroke-width: 2.13; stroke: #377EB8; stroke-linecap: butt;' />
 <rect x='670.74' y='527.62' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <line x1='672.46' y1='536.26' x2='686.29' y2='536.26' style='stroke-width: 1.07; stroke: #4DAF4A; stroke-linecap: butt;' />
+<line x1='672.46' y1='536.26' x2='686.29' y2='536.26' style='stroke-width: 2.13; stroke: #4DAF4A; stroke-linecap: butt;' />
 <rect x='670.74' y='544.90' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <line x1='672.46' y1='553.54' x2='686.29' y2='553.54' style='stroke-width: 1.07; stroke: #984EA3; stroke-linecap: butt;' />
+<line x1='672.46' y1='553.54' x2='686.29' y2='553.54' style='stroke-width: 2.13; stroke: #984EA3; stroke-linecap: butt;' />
 <rect x='670.74' y='562.18' width='17.28' height='17.28' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' />
 <line x1='672.46' y1='570.82' x2='686.29' y2='570.82' style='stroke-width: 1.07; stroke: #FF7F00; stroke-linecap: butt;' />
 <line x1='672.46' y1='570.82' x2='686.29' y2='570.82' style='stroke-width: 2.13; stroke: #FF7F00; stroke-linecap: butt;' />

@@ -22,18 +22,6 @@ wildcard_constraints:
 
 rule all:
     input:
-        "analysis/plots/mrxcat_simulation/features_curves/top12_features.png",
-        "analysis/plots/mrxcat_simulation/total_mae_vs_snr_mae.png",
-        "analysis/plots/mrxcat_simulation/total_mae_vs_snr_mae_1.png",
-        "analysis/plots/mrxcat_simulation/rank_barcode.png",
-        expand("analysis/plots/subject/features_curves/{folder}/top12_features.png", folder = FOLDER),
-        "analysis/plots/subject/total_mae_vs_snr_mae.png",
-        "analysis/plots/subject/total_mae_vs_snr_mae_1.png",
-        "analysis/plots/subject/rank_barcode.png",
-        expand("analysis/plots/ACDC/features_curves/patient0{digits}/top12_features.png", digits = DIGITS),
-        "analysis/plots/ACDC/total_mae_vs_snr_mae.png",
-        "analysis/plots/ACDC/total_mae_vs_snr_mae_1.png",
-        "analysis/plots/ACDC/rank_barcode.png",
         expand("figures/fig{num}.svg", num=[2, 3, 4, 5]),
         expand("figures/supp_fig{num}.svg", num=[1, 2]),
         "figures/fig3_supplement.pdf"

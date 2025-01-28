@@ -10,3 +10,4 @@ dependencies:
     - r-svglite
     - r-corrr
     - r-ggpubr
+    - r-patchwork
