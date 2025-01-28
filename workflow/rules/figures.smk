@@ -1,4 +1,4 @@
-rule GenerateFigure2:
+rule Figure2:
     input:
         "analysis/calculated_mae/mrxcat_simulation/mae.csv",
         "analysis/features_normalized/mrxcat_simulation/features.csv"
@@ -9,7 +9,7 @@ rule GenerateFigure2:
     script:
         "../../code/figures/fig2.R"
 
-rule GenerateFigure3:
+rule Figure3:
     input:
         "analysis/combined/features.tsv",
         "analysis/combined/ranks.tsv"
@@ -21,7 +21,7 @@ rule GenerateFigure3:
     script:
         "../../code/figures/fig3.R"
 
-rule GenerateFigure4:
+rule Figure4:
     input:
         "analysis/combined/ranks.tsv"
     output:
@@ -31,7 +31,7 @@ rule GenerateFigure4:
     script:
         "../../code/figures/fig4.R"
 
-rule GenerateFigure5:
+rule Figure5:
     input:
         "analysis/combined/ranks.tsv"
     output:
@@ -41,7 +41,7 @@ rule GenerateFigure5:
     script:
         "../../code/figures/fig5.R"
         
-rule GenerateSuppFigure1:
+rule SuppFigure1:
     input:
         "analysis/combined/ranks.tsv"
     output:
@@ -51,7 +51,7 @@ rule GenerateSuppFigure1:
     script:
         "../../code/figures/supp_fig1.R"
 
-rule GenerateSuppFigure2:
+rule SuppFigure2:
     input:
         "figures/supp_tab1.tsv"
     output:

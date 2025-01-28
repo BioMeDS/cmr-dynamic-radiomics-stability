@@ -42,7 +42,7 @@ rule combine_tables:
     script:
         "../code/combine_features.R"
 
-rule GenerateSuppTable1:
+rule SuppTable1:
     input:
         "analysis/calculated_mae/mrxcat_simulation/mae.csv",
         expand("analysis/calculated_mae/ACDC/mae_patient0{digits}.csv", digits = DIGITS),
