@@ -1,4 +1,6 @@
 [core]
-    remote = storage
+    remote = zenodo
 ['remote "storage"']
     url = ssh://gaia:/storage/biomeds/data/dvcstore
+['remote "zenodo"']
+    url = ../dvcstore
