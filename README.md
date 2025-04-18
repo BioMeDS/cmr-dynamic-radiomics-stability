@@ -2,10 +2,13 @@
 
 ## Introduction
 
+This repository contains the source code for the paper
+
+*Stability of Dynamic Radiomics Features in Cardiac MRI* by Mike D. Klaus, Fabian Laqua, Bettina Baeßler, and Markus J. Ankenbrand. **In preparation**
 
 ## General workflow
 
-![workflow](docs/workflow/dag.png)
+![workflow](figures/fig1.png)
 
 ## Data sets
 
