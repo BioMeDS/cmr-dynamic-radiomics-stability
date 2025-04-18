@@ -21,5 +21,15 @@ The simulations were performed with Matlab version R2021b. Simulation results ha
 2. .csv to .nifti convertion
 The masks were then extracted from the breathhold phantom used for the simulation in MRXCAT.
 
+### ACDC
+
+The ACDC dataset was published as part of the [Automatic Cardiac Detection Challenge](https://www.creatis.insa-lyon.fr/Challenge/acdc/index.html) [2].
+
+### BAE
+
+Data from the publication *A systematic evaluation of three different cardiac T2-mapping sequences at 1.5 and 3T in healthy volunteers* [3].
+
 ## References
 1. Wissmann, L., Santelli, C., Segars, W.P. et al. MRXCAT: Realistic numerical phantoms for cardiovascular magnetic resonance. J Cardiovasc Magn Reson 16, 63 (2014). https://doi.org/10.1186/s12968-014-0063-3
+2. Bernard, O., Lalande, A., Zotti, C., Cervenansky, F., et al. Deep Learning Techniques for Automatic MRI Cardiac Multi-structures Segmentation and Diagnosis: Is the Problem Solved? IEEE Transactions on Medical Imaging, 37, 11, 2514-2525 (2018). https://doi.org/10.1109/TMI.2018.2837502
+3. Baeßler, B. et al. A systematic evaluation of three different cardiac T2-mapping sequences at 1.5 and 3T in healthy volunteers. Eur. J. Radiol. 84, 2161–2170 (2015). https://doi.org/10.1016/j.ejrad.2015.08.002
