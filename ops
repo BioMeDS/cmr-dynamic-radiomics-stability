@@ -1,0 +1,1 @@
+{"author":{"id":"ce1062c12f5019c7025d51621d92297b4ccc91e36da026c4b5fc40c855047dc3"},"ops":[{"type":1,"timestamp":1754572438,"nonce":"HlpWNSh8SKP+cIwABACx0i2FHEc=","title":"Describe data access via dvc","message":"Large data is not stored in git but available via dvc.\nThere is currently insufficient documentation on how to configure the repo to access this data.","files":null}]}
