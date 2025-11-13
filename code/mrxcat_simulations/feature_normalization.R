@@ -28,7 +28,7 @@ normalize_feature_df <- function(df_location, save_location, standard_df, reg) {
     pivot_longer(
       names_to = "feature",
       values_to = "value",
-      `original_shape_Elongation`:`wavelet-LLL_ngtdm_Strength`
+      `original_firstorder_10Percentile`:`lbp-2D_ngtdm_Strength`
     )
   data_left_join <- data %>%
     filter(file == standard_df) %>%
