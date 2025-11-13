@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 from pathlib import Path
-
+import os
 from autorad.utils.preprocessing import get_paths_with_separate_folder_per_case
 from autorad.data.dataset import ImageDataset
 from autorad.feature_extraction.extractor import FeatureExtractor
@@ -24,7 +24,7 @@ def feature_extraction(input_folder, output_file):
        ID_colname="ID",
        root_dir=f"{input_folder}",
     )
-    extractor = FeatureExtractor(image_dataset, extraction_params="MR_default.yaml")
+    extractor = FeatureExtractor(image_dataset, extraction_params=f"{os.getcwd()}/code/mrxcat_simulations/feature_extraction.yaml")
     feature_df = extractor.run()
     feature_df.ID = feature_df.ID.astype(int)
     feature_df = feature_df.sort_values("ID")
