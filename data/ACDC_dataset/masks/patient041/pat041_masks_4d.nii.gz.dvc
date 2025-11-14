@@ -1,0 +1,6 @@
+outs:
+- md5: e45cb90735ceb0c3ec94c3f3509481fb
+  size: 180760
+  isexec: true
+  hash: md5
+  path: pat041_masks_4d.nii.gz
