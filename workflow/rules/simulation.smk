@@ -1,5 +1,5 @@
 SNR = (5, 10, 20, 30)
-REPLICATE = range(1, 6)
+REPLICATE = range(0, 9)
 NUMBER = range(1, 25)
 FILE = ("image", "segmentation")
 
