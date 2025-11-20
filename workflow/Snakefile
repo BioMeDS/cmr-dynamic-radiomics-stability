@@ -1,4 +1,4 @@
-DIGITS = range(61, 81)
+DIGITS = [f"{i:03}" for i in range(1, 101)]
 SEEDS = ('042', '069', '151', '401', '404', '666', '999', '123', '303', '007')
 NOISE = ("0.010", "0.020", "0.030", "0.040")
 from glob import glob
@@ -30,8 +30,8 @@ rule combine_tables:
     input:
         "analysis/features_normalized/mrxcat_simulation/features.csv",
         "analysis/tables/mrxcat_simulation/ranks.csv",
-        expand("analysis/features_normalized/ACDC/patient0{digits}.csv", digits = DIGITS),
-        expand("analysis/tables/ACDC/ranks_patient0{digits}.csv", digits = DIGITS),
+        expand("analysis/features_normalized/ACDC/patient{digits}.csv", digits = DIGITS),
+        expand("analysis/tables/ACDC/ranks_patient{digits}.csv", digits = DIGITS),
         expand("analysis/features_normalized/subject/{folder}.csv", folder = FOLDER),
         expand("analysis/tables/subject/ranks_{folder}.csv", folder = FOLDER)
     output:
@@ -45,7 +45,7 @@ rule combine_tables:
 rule SuppTable1:
     input:
         "analysis/calculated_mae/mrxcat_simulation/mae.csv",
-        expand("analysis/calculated_mae/ACDC/mae_patient0{digits}.csv", digits = DIGITS),
+        expand("analysis/calculated_mae/ACDC/mae_patient{digits}.csv", digits = DIGITS),
         expand("analysis/calculated_mae/subject/mae_{folder}.csv", folder = FOLDER)
     output:
         "figures/supp_tab1.tsv"

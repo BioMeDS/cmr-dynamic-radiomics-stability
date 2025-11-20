@@ -8,10 +8,10 @@ def aggregate_input_noise_Acdc(wildcards):
 
 checkpoint SplitSlicesAcdc:
     input:
-        "data/ACDC_dataset/data/patient0{digits}/patient0{digits}_4d.nii.gz", 
-        "data/ACDC_dataset/masks/patient0{digits}/pat0{digits}_masks_4d.nii.gz"
+        "data/ACDC_dataset/data/patient{digits}/patient{digits}_4d.nii.gz", 
+        "data/ACDC_dataset/masks/patient{digits}/pat{digits}_masks_4d.nii.gz"
     output:
-        directory("analysis/feature_extraction/ACDC/patient0{digits}"),
+        directory("analysis/feature_extraction/ACDC/patient{digits}"),
     params:
         "0"
     conda:
@@ -22,10 +22,10 @@ checkpoint SplitSlicesAcdc:
 
 checkpoint SplitSlicesNoiseAcdc:
     input:
-        "data/ACDC_dataset/data_noise/patient0{digits}_{noise}_{seed}/patient0{digits}_4d.nii.gz", 
-        "data/ACDC_dataset/masks/patient0{digits}/pat0{digits}_masks_4d.nii.gz"
+        "data/ACDC_dataset/data_noise/patient{digits}_{noise}_{seed}/patient{digits}_4d.nii.gz", 
+        "data/ACDC_dataset/masks/patient{digits}/pat{digits}_masks_4d.nii.gz"
     output:
-        directory("analysis/feature_extraction/ACDC_noise/patient0{digits}_{noise}_{seed}")
+        directory("analysis/feature_extraction/ACDC_noise/patient{digits}_{noise}_{seed}")
     params:
         "0"
     conda:
@@ -35,9 +35,9 @@ checkpoint SplitSlicesNoiseAcdc:
 
 rule GenerateNoiseImagesAcdc:
     input:
-        "data/ACDC_dataset/data/patient0{digits}/patient0{digits}_4d.nii.gz"
+        "data/ACDC_dataset/data/patient{digits}/patient{digits}_4d.nii.gz"
     output:
-        "data/ACDC_dataset/data_noise/patient0{digits}_{noise}_{seed,\\d{3}}/patient0{digits}_4d.nii.gz"
+        "data/ACDC_dataset/data_noise/patient{digits}_{noise}_{seed,\\d{3}}/patient{digits}_4d.nii.gz"
     conda:
         "../noise.yaml"
     params:
@@ -50,7 +50,7 @@ rule FeatureExtractionAcdc:
     input:
         aggregate_input_Acdc
     output:
-        "analysis/features/ACDC_noise/patient0{digits}_0.000_0.csv"
+        "analysis/features/ACDC_noise/patient{digits}_0.000_0.csv"
     conda:
         "../feature_extraction.yaml"
     script:
@@ -60,7 +60,7 @@ rule FeatureExtractionNoiseAcdc:
     input:
         aggregate_input_noise_Acdc
     output:
-        "analysis/features/ACDC_noise/patient0{digits}_{noise}_{seed,\\d{3}}.csv"
+        "analysis/features/ACDC_noise/patient{digits}_{noise}_{seed,\\d{3}}.csv"
     conda:
         "../feature_extraction.yaml"
     script:
@@ -69,23 +69,23 @@ rule FeatureExtractionNoiseAcdc:
 
 rule AcdcFeatureNormalization:
     input:
-        expand("analysis/features/ACDC_noise/patient0{{digits}}_{noise}_{seed}.csv", noise = NOISE, seed = SEEDS),
-        "analysis/features/ACDC_noise/patient0{digits}_0.000_0.csv"
+        expand("analysis/features/ACDC_noise/patient{{digits}}_{noise}_{seed}.csv", noise = NOISE, seed = SEEDS),
+        "analysis/features/ACDC_noise/patient{digits}_0.000_0.csv"
     output:
-        "analysis/features_normalized/ACDC/patient0{digits}.csv"
+        "analysis/features_normalized/ACDC/patient{digits}.csv"
     conda:
         "../tidyverse.yaml"
     params:
-        "patient0{digits}_0.000_0.csv",
-        "patient0{digits}_"
+        "patient{digits}_0.000_0.csv",
+        "patient{digits}_"
     script:
         "../../code/mrxcat_simulations/feature_normalization.R"
 
 rule AcdcCalculateMae:
     input:
-        "analysis/features_normalized/ACDC/patient0{digits}.csv"
+        "analysis/features_normalized/ACDC/patient{digits}.csv"
     output:
-        "analysis/calculated_mae/ACDC/mae_patient0{digits}.csv",
+        "analysis/calculated_mae/ACDC/mae_patient{digits}.csv",
     conda:
         "../calculate_mae.yaml"
     script:
@@ -93,9 +93,9 @@ rule AcdcCalculateMae:
 
 rule AcdcGeneratePlots:
     input:
-        "analysis/features_normalized/ACDC/patient0{digits}.csv"
+        "analysis/features_normalized/ACDC/patient{digits}.csv"
     output:
-        "analysis/plots/ACDC/features_curves/patient0{digits}/top12_features.png"
+        "analysis/plots/ACDC/features_curves/patient{digits}/top12_features.png"
     conda:
         "../tidyverse.yaml"
     script:
@@ -103,7 +103,7 @@ rule AcdcGeneratePlots:
 
 rule AcdcGenerateMaePlots:
     input:
-        expand("analysis/calculated_mae/ACDC/mae_patient0{digits}.csv", digits = DIGITS)
+        expand("analysis/calculated_mae/ACDC/mae_patient{digits}.csv", digits = DIGITS)
     output:
         "analysis/tables/rank_table_ACDC.csv",
         "analysis/plots/ACDC/total_mae_vs_snr_mae.png",
@@ -116,9 +116,9 @@ rule AcdcGenerateMaePlots:
 
 rule AcdcTableRank:
     input:
-        "analysis/calculated_mae/ACDC/mae_patient0{digits}.csv"
+        "analysis/calculated_mae/ACDC/mae_patient{digits}.csv"
     output:
-        "analysis/tables/ACDC/ranks_patient0{digits}.csv"
+        "analysis/tables/ACDC/ranks_patient{digits}.csv"
     conda:
         "../tidyverse.yaml"
     script:
