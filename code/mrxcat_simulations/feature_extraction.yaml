@@ -1,6 +1,7 @@
 imageType:
   Original: {}
-  LBP2D: {}
+  LBP2D: 
+    force2Ddimension : 2
   Wavelet: {}
 
 featureClass:
