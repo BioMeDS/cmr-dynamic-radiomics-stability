@@ -1,0 +1,6 @@
+outs:
+- md5: 77fbcf4e7cad7008d98e24cff2d442f1
+  size: 461963
+  isexec: true
+  hash: md5
+  path: DICOM_WIP_sSA_SENSE_20140316105632_1801_mask.nii.gz

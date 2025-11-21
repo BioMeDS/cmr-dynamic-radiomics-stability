@@ -1,0 +1,6 @@
+outs:
+- md5: 82163885e418f293caa6cbe4519dae13
+  size: 46659800
+  isexec: true
+  hash: md5
+  path: DICOM_WIP_sSA_SENSE_20140315105911_501.nii.gz
