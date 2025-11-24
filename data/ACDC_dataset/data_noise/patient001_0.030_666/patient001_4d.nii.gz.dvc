@@ -1,0 +1,5 @@
+outs:
+- md5: 9f3545335a4a360d6eba85e406beb5c6
+  size: 83652800
+  hash: md5
+  path: patient001_4d.nii.gz
