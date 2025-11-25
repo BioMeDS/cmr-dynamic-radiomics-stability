@@ -18,8 +18,6 @@ load_csvs_in_folder <- function(path) {
   return(data)
 }
 
-class_colors <- c("#FF01F6","#EB6800","#00F0EE", "#09F000", "#EBE100", "#EB0800")
-
 
 #' Create noise Only Table
 #'
@@ -170,7 +168,7 @@ create_plots <- function(data, output1, output2, output3) {
     ylab("Feature Class") +
     labs(fill = "Feature Class") +
     theme(text = element_text(size = 14)) +
-    scale_fill_manual(values = class_colors)
+    scale_fill_brewer(palette = "Set2")
   ggsave(filename = output3 %>%
            file.path %>%
            basename,
