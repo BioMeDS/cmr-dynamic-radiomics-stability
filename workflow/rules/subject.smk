@@ -142,3 +142,68 @@ rule SubTableRank:
         "../tidyverse.yaml"
     script:
         "../../code/single_ranks.R"
+
+
+# Additional rules not to be used in the normal run
+
+rule SubResampleAndNormalize:
+    input:
+        expand("analysis/features/subject_noise/{{folder}}_{noise}_{seed}.csv", noise = NOISE, seed = SEEDS),
+        "analysis/features/subject_noise/{folder}_0.000_0.csv"
+    output:
+        "analysis/resampled_features/subject/{folder}.csv"
+    conda:
+        "../tidyverse.yaml"
+    params:
+        "{folder}_0.000_0.csv",
+        "{folder}_"
+    script:
+        "../../code/rev/feature_resample_normalization.R"
+
+
+rule SubResampledCalculateMae:
+    input:
+        "analysis/resampled_features/subject/{folder}.csv"
+    output:
+        "analysis/resampled_features/calculated_mae/subject/mae_{folder}.csv"
+    conda:
+        "../calculate_mae.yaml"
+    script:
+        "../../code/mrxcat_simulations/calculate_mae.py"
+
+rule SubResampledGeneratePlots:
+    input:
+        "analysis/resampled_features/subject/{folder}.csv",
+    output:
+        "analysis/resampled_features/plots/subject/features_curves/{folder}/top12_features.png"
+    conda:
+        "../tidyverse.yaml"
+    script:
+        "../../code/feature_plots.R"
+
+rule SubResampledGenerateMaePlots:
+    input:
+        expand("analysis/resampled_features/calculated_mae/subject/mae_{folder}.csv", folder = FOLDER),
+    output:
+        "analysis/resampled_features/tables/rank_table_subject.csv",
+        "analysis/resampled_features/plots/subject/total_mae_vs_snr_mae.png",
+        "analysis/resampled_features/plots/subject/total_mae_vs_snr_mae_1.png",
+        "analysis/resampled_features/plots/subject/rank_barcode.png",
+    conda:
+        "../tidyverse.yaml"
+    script:
+        "../../code/mae_plots.R"
+
+rule SubResampledTableRank:
+    input:
+        "analysis/resampled_features/calculated_mae/subject/mae_{folder}.csv"
+    output:
+        "analysis/resampled_features/tables/subject/ranks_{folder}.csv"
+    conda:
+        "../tidyverse.yaml"
+    script:
+        "../../code/single_ranks.R"
+
+rule SubResampled:
+    input:
+        expand("analysis/resampled_features/tables/subject/ranks_{folder}.csv", folder = FOLDER)
