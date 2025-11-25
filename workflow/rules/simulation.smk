@@ -133,7 +133,7 @@ rule SimTableRank:
 rule GeneratePlots:
     input:
         "analysis/features_normalized/mrxcat_simulation/features.csv", 
-        "analysis/tables/mrxcat_simulation/ranks.csv"
+        "analysis/calculated_mae/mrxcat_simulation/mae.csv"
     output:
         "analysis/plots/mrxcat_simulation/features_curves/top12_features.png",
         "analysis/tables/rank_table_simulation.csv",
