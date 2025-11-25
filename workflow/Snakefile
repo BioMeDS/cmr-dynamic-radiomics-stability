@@ -9,6 +9,7 @@ import re
 include: "rules/ACDC.smk"
 include: "rules/simulation.smk"
 include: "rules/subject.smk"
+include: "rules/rev.smk"
 include: "rules/figures.smk"
 
 subject_data = glob("data/subject_data/*/*[!mask].nii.gz")
