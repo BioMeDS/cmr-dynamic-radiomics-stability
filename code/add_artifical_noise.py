@@ -22,7 +22,7 @@ def generate_noise(image_path, seed, noise, output_path):
     std = float(noise) * file_max
     image_data = tio.ScalarImage(tensor=image_data)
     subject = tio.Subject(image=image_data)
-    transforms = tio.RandomNoise(std=std)
+    transforms = tio.RandomNoise(std=(std, std))
     transformed_image = transforms(subject)
     nib.save(nib.Nifti1Image(np.array(transformed_image['image'].tensor), np.eye(4)), output_path)
 
