@@ -28,7 +28,7 @@ normalize_feature_df <- function(df_location, save_location, standard_df, reg) {
     pivot_longer(
       names_to = "feature",
       values_to = "value",
-      `original_firstorder_10Percentile`:`lbp-2D_ngtdm_Strength`
+      -c(ID, image_path, segmentation_path, extraction_ID, file)
     )
   data_left_join <- data %>%
     filter(file == standard_df) %>%

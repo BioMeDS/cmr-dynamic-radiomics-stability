@@ -32,7 +32,7 @@ prepare_data <- function(path) {
 #' plot_top_12_features("/path/to/data", "output.png")
 plot_top_12_features <- function(path, filename) {
   top_12_candidates <- prepare_data(path) %>%
-    select(noise, `original_shape_Elongation`:`wavelet-LLL_ngtdm_Strength`) %>%
+    select(noise, -c(ID, image_path, segmentation_path, extraction_ID, file)) %>%
     pivot_longer(names_to = "feature", values_to = "value", -noise) %>%
     group_by(noise, feature) %>%
     summarize(value = mean(value)) %>%
@@ -73,10 +73,10 @@ plot_top_12_features <- function(path, filename) {
 plot_noise_curves <- function(path, output_path) {
   prepare_data(path) %>%
     select(ID, noise, file,
-           `original_shape_Elongation`:`wavelet-LLL_ngtdm_Strength`) %>%
+           -c(ID, image_path, segmentation_path, extraction_ID, file)) %>%
     pivot_longer(names_to = "feature",
                  values_to = "value",
-                 `original_shape_Elongation`:`wavelet-LLL_ngtdm_Strength`) %>%
+                 -c(ID, image_path, segmentation_path, extraction_ID, file)) %>%
     group_split(feature) %>%
     map(~{
           plot <- ggplot(.x) + aes(x = ID, y = value, color = noise) +

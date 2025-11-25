@@ -18,6 +18,8 @@ load_csvs_in_folder <- function(path) {
   return(data)
 }
 
+class_colors <- c("#FF01F6","#EB6800","#00F0EE", "#09F000", "#EBE100", "#EB0800")
+
 
 #' Create noise Only Table
 #'
