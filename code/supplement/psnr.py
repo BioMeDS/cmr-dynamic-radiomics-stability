@@ -5,6 +5,9 @@ import sys
 i1 = sys.argv[1]
 i2 = sys.argv[2]
 
+if i1 == i2:  # psnr between identical images is not meaningful
+    exit(0)
+
 im1 = nib.load(i1).get_fdata()
 im2 = nib.load(i2).get_fdata()
 
