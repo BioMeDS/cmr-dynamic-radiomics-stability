@@ -1,14 +1,7 @@
 library(tidyverse)
-library(ggridges)
-library(munsell)
 library(corrr)
 theme_set(theme_minimal())
 
-#' Function to load CSV files in a folder and combine them into a single data frame
-#'
-#' @param path The path to the folder containing the CSV files
-#'
-#' @return A data frame containing the combined data from all the CSV files
 load_csvs_in_folder <- function(paths) {
   df <- paths %>%
     map_df(
