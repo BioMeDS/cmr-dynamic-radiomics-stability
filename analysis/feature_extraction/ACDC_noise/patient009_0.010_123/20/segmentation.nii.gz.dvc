@@ -1,0 +1,5 @@
+outs:
+- md5: b36fe7630b55f849b7c4ecd70c4bb838
+  size: 2704
+  hash: md5
+  path: segmentation.nii.gz

@@ -1,0 +1,5 @@
+outs:
+- md5: 3e1588d55010f6ef656d9ee5639c0336
+  size: 268871
+  hash: md5
+  path: image.nii.gz
