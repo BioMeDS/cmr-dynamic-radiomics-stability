@@ -1,7 +1,7 @@
 VALID_SLICES = [6, 7, 8]
-subject_data = glob("data/subject_data/Proband X8/*[!mask].nii.gz")
+subject_data_rev = glob("data/subject_data/Proband X8/*[!mask].nii.gz")
 
-FOLDER = [os.path.basename(Path(x).parent) for x in subject_data]
+FOLDER_REV = [os.path.basename(Path(x).parent) for x in subject_data]
 
 def rev_aggregate_input_Sub(wildcards):
     dir = checkpoints.RevSplitSlicesSub.get(**wildcards).output[0]
@@ -83,9 +83,9 @@ rule RevCalculateMae:
     script:
         "../../code/mrxcat_simulations/calculate_mae.py"
 
-rule RevGenerateMaePlots:
+rule RevGenerateComp:
     input:
-        expand("analysis/multiple_slices/calculated_mae/subject/{valid_slices}/mae_{folder}.csv", folder = FOLDER, valid_slices = VALID_SLICES),
+        expand("analysis/multiple_slices/calculated_mae/subject/{valid_slices}/mae_{folder}.csv", folder = FOLDER_REV, valid_slices = VALID_SLICES),
     output:
         "figures/rev/slice6vs7.svg",
         "figures/rev/slice6vs8.svg",
@@ -108,11 +108,17 @@ rule RevTableRank:
 
 rule Rev:
     input:
-        expand("analysis/multiple_slices/tables/subject/{valid_slices}/ranks_{folder}.csv", folder = FOLDER, valid_slices = VALID_SLICES),
+        expand("analysis/multiple_slices/tables/subject/{valid_slices}/ranks_{folder}.csv", folder = FOLDER_REV, valid_slices = VALID_SLICES),
         "figures/rev/slice6vs7.svg",
         "figures/rev/slice6vs8.svg",
         "figures/rev/slice7vs8.svg",
         "figures/rev/spearman.svg"
+
+
+# Rules for resampled image analysis
+
+subject_data = glob("data/subject_data/*/*[!mask].nii.gz")
+FOLDER = [os.path.basename(Path(x).parent) for x in subject_data]
 
 rule SubResampleAndNormalize:
     input:
@@ -139,28 +145,17 @@ rule SubResampledCalculateMae:
     script:
         "../../code/mrxcat_simulations/calculate_mae.py"
 
-rule SubResampledGeneratePlots:
-    input:
-        "analysis/resampled_features/subject/{folder}.csv",
-    output:
-        "analysis/resampled_features/plots/subject/features_curves/{folder}/top12_features.png"
-    conda:
-        "../tidyverse.yaml"
-    script:
-        "../../code/feature_plots.R"
-
-rule SubResampledGenerateMaePlots:
+rule SubResampledComp:
     input:
         expand("analysis/resampled_features/calculated_mae/subject/mae_{folder}.csv", folder = FOLDER),
+        expand("analysis/calculated_mae/subject/mae_{folder}.csv", folder = FOLDER),
     output:
-        "analysis/resampled_features/tables/rank_table_subject.csv",
-        "analysis/resampled_features/plots/subject/total_mae_vs_snr_mae.png",
-        "analysis/resampled_features/plots/subject/total_mae_vs_snr_mae_1.png",
-        "analysis/resampled_features/plots/subject/rank_barcode.png",
+        "figures/rev/resampled_vs_unresampled.svg",
+        "figures/rev/resampled_unresampled_rank_comparison.svg"
     conda:
         "../tidyverse.yaml"
     script:
-        "../../code/mae_plots.R"
+        "../../code/rev/resampled.R"
 
 rule SubResampledTableRank:
     input:
@@ -175,7 +170,5 @@ rule SubResampledTableRank:
 rule SubResampled:
     input:
         expand("analysis/resampled_features/tables/subject/ranks_{folder}.csv", folder = FOLDER),
-        "analysis/resampled_features/tables/rank_table_subject.csv",
-        "analysis/resampled_features/plots/subject/total_mae_vs_snr_mae.png",
-        "analysis/resampled_features/plots/subject/total_mae_vs_snr_mae_1.png",
-        "analysis/resampled_features/plots/subject/rank_barcode.png",
+        "figures/rev/resampled_vs_unresampled.svg",
+        "figures/rev/resampled_unresampled_rank_comparison.svg"
