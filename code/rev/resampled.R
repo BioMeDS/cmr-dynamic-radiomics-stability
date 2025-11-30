@@ -17,14 +17,14 @@ df1 <- df %>% separate(filename, into=c("_", "patient"), sep="_") %>%
            summarise(mae = mean(mae)) %>% group_by(resampled) %>%
 	   mutate(rank = dense_rank(mae)) %>% filter(!is.na(rank)) %>% select(-rank) %>%
 	   group_by(resampled) %>% group_split()
-plot <- correlate(df1[[1]] %>% pivot_wider(names_from=c(patient), values_from=mae), df1[[2]] %>% pivot_wider(names_from=c(patient), values_from=mae), method = "spearman") %>%
+plot <- correlate(df1[[1]] %>% pivot_wider(names_from=c(patient), values_from=mae), df1[[2]] %>% 
+		  pivot_wider(names_from=c(patient), values_from=mae), method = "spearman") %>%
         stretch(na.rm = TRUE) %>%
-        rename(`Spearman r` = r) %>% write_csv("test.csv")
+        rename(`Spearman r` = r) %>% 
         ggplot(aes(x,`Spearman r`)) +
         geom_boxplot() +
         theme_minimal() +
-          #scale_fill_gradient2(low="blue", high="red") +
-          #theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+        #theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
         xlab("") + ylab("")
 
 plot1 <- df %>% group_by(Feature_name, resampled) %>% summarise(mae = mean(mae)) %>% group_by(resampled) %>% mutate(rank = dense_rank(mae)) %>%
