@@ -8,6 +8,11 @@ fig4 <- ranks_combined %>%
   filter(!is.na(rank)) %>%
   select(-rank) %>%
   #mutate(mae = pmin(mae, 30)) %>%
+  mutate(
+         patient = str_replace(patient, "patient", "ACDC"),
+         patient = str_replace(patient, "sim", "MRXCAT"),
+         patient = str_replace(patient, "Proband X", "BAE")
+  ) %>%
   pivot_wider(names_from=patient, values_from=mae) %>%
   correlate(method = "spearman") %>%
   #shave() %>%
@@ -20,4 +25,4 @@ fig4 <- ranks_combined %>%
     theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
     xlab("") + ylab("")
 
-ggsave("figures/fig4.svg", plot=fig4, width=10, height=8)
+ggsave("figures/fig4.svg", plot=fig4, width=12, height=10)
