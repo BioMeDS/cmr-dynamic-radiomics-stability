@@ -1,0 +1,5 @@
+outs:
+- md5: b8e23319396ed4e843b92c98fdb631c9
+  size: 4753024
+  hash: md5
+  path: cine_1x1x1mm_512x512x1x24x4_snr30_fa90_bh14.csv
