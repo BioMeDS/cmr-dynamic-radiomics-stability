@@ -1,0 +1,5 @@
+outs:
+- md5: cc5aed4810c0fa0b69b004d5bddd938f
+  size: 1997385
+  hash: md5
+  path: cine_1x1x1mm_512x512x1x24x4_snr30_fa90_bh8.nii.gz
