@@ -11,6 +11,7 @@ include: "rules/simulation.smk"
 include: "rules/subject.smk"
 include: "rules/rev.smk"
 include: "rules/figures.smk"
+include: "rules/ml.smk"
 
 subject_data = glob("data/subject_data/*/*[!mask].nii.gz")
 
@@ -25,7 +26,8 @@ rule all:
     input:
         expand("figures/fig{num}.svg", num=[2, 3, 4, 5]),
         expand("figures/supp_fig{num}.svg", num=[1, 2]),
-        "figures/fig3_supplement.pdf"
+        "figures/supp_tab2.tsv",
+        "figures/supp_fig5.svg"
 
 rule combine_tables:
     input:

@@ -1,0 +1,4 @@
+range	median(test_acc)
+top	0.4
+middle	0.25
+bottom	0.225
