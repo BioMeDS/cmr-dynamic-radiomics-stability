@@ -12,6 +12,12 @@ This repository contains the source code for the paper
 
 ## Data sets
 
+The large data in this repository is managed via [dvc](https://dvc.org/). That's why you see a lot of `.dvc` files in the folder structure. The content of the corresponding files is not directly included. For many of the MRXCAT and ACDC files and all the final results, these files are included in the [`dvcstore` deposited at Zenodo](https://doi.org/10.5281/zenodo.15239917). In order to use it, download and unzip it into your repository root. Then you can get files from the store with `dvc pull -r zenodo`. For example:
+
+```bash
+dvc pull -r zenodo analysis/features_normalized/ACDC/patient001.csv.dvc
+```
+
 ### MRXCAT
 
 Simulations with different SNR (5,10,20,30) using [MRXCAT](https://biomed.ee.ethz.ch/mrxcat.html) [1] version v1.4 and the breathhold phantom.
@@ -28,6 +34,11 @@ The ACDC dataset was published as part of the [Automatic Cardiac Detection Chall
 ### BAE
 
 Data from the publication *A systematic evaluation of three different cardiac T2-mapping sequences at 1.5 and 3T in healthy volunteers* [3].
+
+## Running the analysis
+
+
+
 
 ## References
 1. Wissmann, L., Santelli, C., Segars, W.P. et al. MRXCAT: Realistic numerical phantoms for cardiovascular magnetic resonance. J Cardiovasc Magn Reson 16, 63 (2014). https://doi.org/10.1186/s12968-014-0063-3
