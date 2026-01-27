@@ -25,9 +25,8 @@ wildcard_constraints:
 rule all:
     input:
         expand("figures/fig{num}.svg", num=[2, 3, 4, 5]),
-        expand("figures/supp_fig{num}.svg", num=[1, 2]),
-        "figures/supp_tab2.tsv",
-        "figures/supp_fig5.svg"
+        expand("figures/supp_fig{num}.svg", num=[1, 2, 5]),
+        expand("figures/supp_tab{num}.svg", num=[1, 2]),
 
 rule combine_tables:
     input:

@@ -37,7 +37,19 @@ Data from the publication *A systematic evaluation of three different cardiac T2
 
 ## Running the analysis
 
+The analysis is implemented as a snakemake workflow (see `Snakemake` and `.smk` files in `workflow/`). If you want to re-run it, you can call this command from the root of the repository:
 
+```bash
+snakemake --software-deployment-method conda --cores 8
+```
+
+The default target are all the figures and tables in `figures/` (including supplementary ones).
+So this command will likely complain about missing input files (the BAE data).
+Either edit the inputs for `rule all` manually in `workflow/Snakefile` or call snakemake with the outputs of interest, e.g.:
+
+```bash
+snakemake --software-deployment-method conda --cores 8 figures/fig1.svg
+```
 
 
 ## References
